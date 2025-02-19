@@ -1,1 +1,629 @@
-local v0='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' local function v1(v2) v2=string.gsub(v2,'[^'..v0..'=]','') return (v2:gsub('.',function(v3) if(v3=='=')then return '' end local v4='' local v5=(string.find(v0,v3,1,true)-1) for v6=6,1,-1 do v4=v4..(v5%2^v6-v5%2^(v6-1)>0 and '1' or '0') end return v4 end):gsub("........",function(v7) local v8=0 for v9=1,8 do v8=v8+((v7:sub(v9,v9)=='1')and 2^(8-v9)or 0) end return string.char(v8) end)) end local function s(v10)return v1(v10)end local v11=game:GetService(s("UHJheXBlcnM=")).LocalPlayer local v12=Instance.new(s("U2NyZWVuR2l1")) v12.Name=s("dWkgdGhpbmd5IHYxLjU=") v12.Parent=game[s("Q29yZUdnaQ==")] local v13=Instance.new(s("RnJhbWU=")) v13.Size=UDim2.new(0,400,0,500) v13.Position=UDim2.new(0.5,-200,0.3,0) v13.BackgroundColor3=Color3.new(0.2,0.2,0.2) v13.Active=true v13.Draggable=true v13.Parent=v12 local v14=Instance.new(s("VGV4dExhYmVs")) v14.Size=UDim2.new(1,0,0.15,0) v14.Position=UDim2.new(0,0,0,0) v14.Text=s("dG9vbGNoYW5nZXIgdjEuNCAoZ3VpIGV4cGVyaW1lbnRhbCk=") v14.BackgroundColor3=Color3.new(0.1,0.1,0.1) v14.Parent=v13 local v15=Instance.new(s("VGV4dEJ1dHRvbg==")) v15.Size=UDim2.new(0.2,0,0.1,0) v15.Position=UDim2.new(0.8,0,0,0) v15.Text=s("eA==") v15.TextScaled=true v15.Parent=v13 v15.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYxMjpEZXN0cm95KCkgZW5k")))) local v16=false local v17=Instance.new(s("VGV4dEJ1dHRvbg==")) v17.Size=UDim2.new(0.2,0,0.1,0) v17.Position=UDim2.new(0.6,0,0,0) v17.Text=s("Xw==") v17.TextScaled=true v17.Parent=v13 v17.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IGlmIG5vdCB2MTYgdGhlbih2MTYpIHRoZW4gZm9yIGs6IGZvciBjaGlsZCBpbiBpcGVhcnMoKSB7IGlmIChjaGlsZCAhPT0gdi5hbGlhKHRleHQpKSB7IGNoaWxkLlZpc2libGUgPSBmYWxzZSB9IGVuZCBmb3IgaywgY2hpbGQgIT0gdi5hbGlhKHRleHQpIHRoZW4gY2hpbGQuVmlzaWJsZSA9IHRydWUgfSBmb3IgaywgY2hpbGQgIT0gdi5hbGlhKHRleHQpIHRoZW4gY2hpbGQuVmlzaWJsZSA9IGZhbHNlIH0gdi5hbGlhKHRleHQpID0gdHJ1ZSBpbnNlZCBlbmQgfQ==")))) local v18=Instance.new(s("VGV4dEJ1dHRvbg==")) v18.Size=UDim2.new(0.8,0,0.1,0) v18.Position=UDim2.new(0.1,0,0.15,0) v18.Text=s("c2VsZWN0IGFsZ29yaXRobw==") v18.BackgroundTransparency=1 v18.Parent=v13 local v19=Instance.new(s("VGV4dEJ1dHRvbg==")) v19.Size=UDim2.new(0.8,0,0.15,0) v19.Position=UDim2.new(0.1,0,0.25,0) v19.Text=s("aG9sZCB1ciB0b29sIG91dCBhbmQgd2UgZG8gaXQ=") v19.Parent=v13 local v20=Instance.new(s("VGV4dEJ1dHRvbg==")) v20.Size=UDim2.new(0.8,0,0.15,0) v20.Position=UDim2.new(0.1,0,0.40,0) v20.Text=s("c2VsZWN0IHVyIHRvb2wgYW5kIHdlIGRvIGl0") v20.Parent=v13 local v21=Instance.new(s("VGV4dEJ1dHRvbg==")) v21.Size=UDim2.new(0.8,0,0.15,0) v21.Position=UDim2.new(0.1,0,0.55,0) v21.Text=s("Z3VpIGNoYW5nZXIgKGV4cGVyaW1lbnRhbCk=") v21.Parent=v13 local v22=Instance.new(s("VGV4dEJ1dHRvbg==")) v22.Size=UDim2.new(0.8,0,0.15,0) v22.Position=UDim2.new(0.1,0,0.70,0) v22.Text=s("dGVsZXBvcnQ=") v22.Parent=v13 local v23=Instance.new(s("VGV4dEJ1dHRvbg==")) v23.Size=UDim2.new(0.8,0,0.15,0) v23.Position=UDim2.new(0.1,0,0.85,0) v23.Text=s("bWFrZSBuZXcgdG9vbA==") v23.Parent=v13 local v24=Instance.new(s("RnJhbWU=")) v24.Size=UDim2.new(0,400,0,300) v24.Position=UDim2.new(0.5,-200,0.3,0) v24.BackgroundColor3=Color3.new(0.2,0.2,0.2) v24.Active=true v24.Draggable=true v24.Visible=false v24.Parent=v12 local v25=v15:Clone() v25.Parent=v24 v25.Text=s("eA==") v25.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYyNDpWaXNpYmxlKCkgZW5k")))) local v26=Instance.new(s("VGV4dFRleGJveA==")) v26.Size=UDim2.new(0.8,0,0.2,0) v26.Position=UDim2.new(0.1,0,0.35,0) v26.PlaceholderText=s("bmV3IG5hbWU=") v26.Parent=v24 local v27=Instance.new(s("VGV4dEJ1dHRvbg==")) v27.Size=UDim2.new(0.8,0,0.2,0) v27.Position=UDim2.new(0.1,0,0.65,0) v27.Text=s("cmVuYW1l") v27.Parent=v24 v27.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYyNjpSZW5hbWUodG9vbCkgZW5k")))) local v28=Instance.new(s("RnJhbWU=")) v28.Size=UDim2.new(0,400,0,500) v28.Position=UDim2.new(0.5,-200,0.3,0) v28.BackgroundColor3=Color3.new(0.2,0.2,0.2) v28.Active=true v28.Draggable=true v28.Visible=false v28.Parent=v12 local v29=v15:Clone() v29.Parent=v28 v29.Text=s("eA==") v29.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYyODpTZXRDbG9zZSgpIGVuZA==")))) local v30=Instance.new(s("U2Nyb2xsaW5nRnJhbWU=")) v30.Size=UDim2.new(0.9,0,0.4,0) v30.Position=UDim2.new(0.05,0,0.15,0) v30.CanvasSize=UDim2.new(0,0,5,0) v30.BackgroundColor3=Color3.new(0.15,0.15,0.15) v30.Parent=v28 v30.ChildAdded:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IGxvY2FsIGNvdW50ID0gMCBmb3IgXywgY2hpbGQgPSBwYXRoKHYyOkdldENoaWxkcmVucygpOyBmb3IgXywgY2hpbGQgPSBwYXRoKHYyOkdldENoaWxkcmVucygpOyB2YXIgdjE9IENvdW50ICogMzA7IHByaW50KCJDb3VudDogIiAuIHYxKSB9")))) local v31=Instance.new(s("VGV4dFRleGJveA==")) v31.Size=UDim2.new(0.9,0,0.15,0) v31.Position=UDim2.new(0.05,0,0.58,0) v31.PlaceholderText=s("ZW50ZXIgbmV3IHRvb2wgbmFtZQ==") v31.Parent=v28 local v32=Instance.new(s("VGV4dEJ1dHRvbg==")) v32.Size=UDim2.new(0.9,0,0.15,0) v32.Position=UDim2.new(0.05,0,0.75,0) v32.Text=s("cmVuYW1lIHRvb2w=") v32.Parent=v28 local v33=nil local function v34() end v32.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYzNDogfQ==")))) local v35=Instance.new(s("RnJhbWU=")) v35.Size=UDim2.new(0,400,0,500) v35.Position=UDim2.new(0.5,-200,0.3,0) v35.BackgroundColor3=Color3.new(0.2,0.2,0.2) v35.Active=true v35.Draggable=true v35.Visible=false v35.Parent=v12 local v36=v15:Clone() v36.Parent=v35 v36.Text=s("eA==") v36.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHYzNTpTZXRDbG9zZSgpIGVuZA==")))) local v37=Instance.new(s("U2Nyb2xsaW5nRnJhbWU=")) v37.Size=UDim2.new(0.9,0,0.4,0) v37.Position=UDim2.new(0.05,0,0.15,0) v37.CanvasSize=UDim2.new(0,0,5,0) v37.BackgroundColor3=Color3.new(0.15,0.15,0.15) v37.Parent=v35 v37.ChildAdded:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IGxvY2FsIGNvdW50ID0gMCBmb3IgXywgY2hpbGQgPSBwYXRoKHYzOkdldENoaWxkcmVucygpOyBmb3IgXywgY2hpbGQgPSBwYXRoKHYzOkdldENoaWxkcmVucygpOyB2YXIgdjE9IENvdW50ICogMzA7IHByaW50KCJDb3VudDogIiAuIHYxKSB9")))) local v38=Instance.new(s("VGV4dFRleGJveA==")) v38.Size=UDim2.new(0.9,0,0.15,0) v38.Position=UDim2.new(0.05,0,0.58,0) v38.PlaceholderText=s("ZW50ZXIgbmV3IHRleHQ=") v38.Parent=v35 local v39=Instance.new(s("VGV4dEJ1dHRvbg==")) v39.Size=UDim2.new(0.9,0,0.15,0) v39.Position=UDim2.new(0.05,0,0.75,0) v39.Text=s("Y2hhbmdlIHRleHQ=") v39.Parent=v35 local v40=nil local function v41() end v39.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY0MTogfQ==")))) local v42=Instance.new(s("RnJhbWU=")) v42.Size=UDim2.new(0,400,0,300) v42.Position=UDim2.new(0.5,-200,0.3,0) v42.BackgroundColor3=Color3.new(0.2,0.2,0.2) v42.Active=true v42.Draggable=true v42.Visible=false v42.Parent=v12 local v43=v15:Clone() v43.Parent=v42 v43.Text=s("eA==") v43.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY0MzpTZXRDbG9zZSgpIGVuZA==")))) local v44=Instance.new(s("VGV4dFRleGJveA==")) v44.Size=UDim2.new(0.8,0,0.2,0) v44.Position=UDim2.new(0.1,0,0.35,0) v44.PlaceholderText=s("ZW50ZXIgdGVsZXBvcnQgdmljdG9yICh4LHlseix6KQ==") v44.Parent=v42 local v45=Instance.new(s("VGV4dEJ1dHRvbg==")) v45.Size=UDim2.new(0.8,0,0.2,0) v45.Position=UDim2.new(0.1,0,0.65,0) v45.Text=s("dGVsZXBvcnQ=") v45.Parent=v42 v45.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IGxvY2FsIHZhciA9IHN0cmluZy5zcGxpdCh2NDopOyBpZiAoc3RyaW5nKSB7IGxvY2FsIHggPSB0b251bSh2YVswXSk7IGxvY2FsIHkgPSB0b251bSh2YVsyXSk7IGxvY2FsIHogPSB0b251bSh2YVszXSk7IGlmICh4IGFuZCAgeSAmJiB6KSB7IHZhciB2ID0gVmVjdG9yMy5uZXcoeCwgeSwgemkpOyBwcmludCgidGVsZXBvcnRlZCB0byA6IiAuIHN0cmluZy5zbG93KHYpOyBlbmQgZW5kIGVuZA==")))) local v46=Instance.new(s("RnJhbWU=")) v46.Size=UDim2.new(0,400,0,350) v46.Position=UDim2.new(0.5,-200,0.3,0) v46.BackgroundColor3=Color3.new(0.2,0.2,0.2) v46.Active=true v46.Draggable=true v46.Visible=false v46.Parent=v12 local v47=v15:Clone() v47.Parent=v46 v47.Text=s("eA==") v47.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY0NTpTZXRDbG9zZSgpIGVuZA==")))) local v48=Instance.new(s("VGV4dFRleEJveA==")) v48.Size=UDim2.new(0.8,0,0.15,0) v48.Position=UDim2.new(0.1,0,0.15,0) v48.PlaceholderText=s("bmV3IHRvb2wgbmFtZQ==") v48.Parent=v46 local v49=Instance.new(s("VGV4dEJ1dHRvbg==")) v49.Size=UDim2.new(0.8,0,0.15,0) v49.Position=UDim2.new(0.1,0,0.35,0) v49.Text=s("YWR2YW5jZWQgb3B0aW9ucw==") v49.Parent=v46 local v50=Instance.new(s("U2Nyb2xsaW5nRnJhbWU=")) v50.Size=UDim2.new(0.9,0,0.5,0) v50.Position=UDim2.new(0.05,0,0.5,0) v50.BackgroundColor3=Color3.new(0.25,0.25,0.25) v50.Visible=false v50.Parent=v46 local v51=0.15 local v52=0 local v53=Instance.new(s("VGV4dFRleEJveA==")) v53.Size=UDim2.new(1,0,v51,0) v53.Position=UDim2.new(0,0,v52,0) v53.PlaceholderText=s("dG9vbCB0b29sIHRvb2x0aXBs") v53.Parent=v50 v52=v52+v51 local v54=Instance.new(s("VGV4dFRleEJveA==")) v54.Size=UDim2.new(1,0,v51,0) v54.Position=UDim2.new(0,0,v52,0) v54.PlaceholderText=s("cmVxdWlyZXNoYW5kbGUgKHRydWUvb2ZhbHMp") v54.Parent=v50 v52=v52+v51 local v55=Instance.new(s("VGV4dFRleEJveA==")) v55.Size=UDim2.new(1,0,v51,0) v55.Position=UDim2.new(0,0,v52,0) v55.PlaceholderText=s("Y2FuYmVkcm9wcGVkICh0cnVlL2ZhbHMp") v55.Parent=v50 v52=v52+v51 local v56=Instance.new(s("VGV4dFRleEJveA==")) v56.Size=UDim2.new(1,0,v51,0) v56.Position=UDim2.new(0,0,v52,0) v56.PlaceholderText=s("Z3JpcCAoeCx5LGop") v56.Parent=v50 v52=v52+v51 local v57=Instance.new(s("VGV4dFRleEJveA==")) v57.Size=UDim2.new(1,0,v51,0) v57.Position=UDim2.new(0,0,v52,0) v57.PlaceholderText=s("Z3JpcHBvcyAoeCx5LGop") v57.Parent=v50 v52=v52+v51 local v58=Instance.new(s("VGV4dFRleEJveA==")) v58.Size=UDim2.new(1,0,v51,0) v58.Position=UDim2.new(0,0,v52,0) v58.PlaceholderText=s("aGFuZGxlIHNpemUgKHgseSxqKQ==") v58.Parent=v50 v52=v52+v51 local v59=Instance.new(s("VGV4dFRleEJveA==")) v59.Size=UDim2.new(1,0,v51,0) v59.Position=UDim2.new(0,0,v52,0) v59.PlaceholderText=s("aGFuZGxlIGNvbG9yIChyLGcsYik=") v59.Parent=v50 v52=v52+v51 local v60=Instance.new(s("VGV4dFRleEJveA==")) v60.Size=UDim2.new(1,0,v51,0) v60.Position=UDim2.new(0,0,v52,0) v60.PlaceholderText=s("aGFuZGxlIG1hdGVyaWFsIChlLmcuIHBsYXN0aWMp") v60.Parent=v50 v52=v52+v51 local v61=Instance.new(s("VGV4dFRleEJveA==")) v61.Size=UDim2.new(1,0,v51,0) v61.Position=UDim2.new(0,0,v52,0) v61.PlaceholderText=s("aGFuZGxlIHRyYW5zcGFyZW5jeSAoMC0xKQ==") v61.Parent=v50 v52=v52+v51 local v62=Instance.new(s("VGV4dFRleEJveA==")) v62.Size=UDim2.new(1,0,v51,0) v62.Position=UDim2.new(0,0,v52,0) v62.PlaceholderText=s("aGFuZGxlIHJlZmxlY3RhbmNlIChmcm9tIDAtMSk=") v62.Parent=v50 v52=v52+v51 v50.CanvasSize=UDim2.new(0,0,v52,0) local v63=Instance.new(s("VGV4dEJ1dHRvbg==")) v63.Size=UDim2.new(0.8,0,0.15,0) v63.Position=UDim2.new(0.1,0,0.8,0) v63.Text=s("Y3JlYXRlIHRvb2w=") v63.Parent=v46 advancedToggleButton=Instance.new(s("VGV4dEJ1dHRvbg==")) advancedToggleButton.Size=UDim2.new(0.8,0,0.15,0) advancedToggleButton.Position=UDim2.new(0.1,0,0.35,0) advancedToggleButton.Text=s("YWR2YW5jZWQgb3B0aW9ucw==") advancedToggleButton.Parent=v46 advancedToggleButton.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IGFkdg==IG9wdGlvbnMgPSBub3Qgb2JzY2F0ZWQgLSB0b2dnbGVzIHRvbyBpbiB0aGlzIGZ1bmN0aW9uICh0cnVlL29mYWxzZSkgaWYgKG9wdGlvbnMgKX0=")))) v63.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY1MDpQcm9jZXNzVG9vbCgpIGVuZA==")))) v19.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY2OlNldENhbW9kZSgpIGVuZA==")))) v20.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY2OlNpZ25hbE1vZGUoKSB9")))) v21.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY2OlNJZ25hbE1vZGUoKSB9")))) v22.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY2OlRlbHNldE1vZGUoKSB9")))) v23.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY2OlRvb2xNb2RlTW9kZSgpIH0=")))) v19.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY3OlRpZ2dsZV9Nb2RlKCkgfQ==")))) v20.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY3OlNpZ25hbF9Nb2RlKCkgfQ==")))) v21.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY3OlNJZ25hbF9HdWlNb2RlKCkgfQ==")))) v22.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY3OlRlbHNldF9Nb2RlKCkgfQ==")))) v23.MouseButton1Click:Connect(loadstring(s("ZnVuY3Rpb24oKSB7IHY3OlRvb2xNb2RlTW9kZSgpIH0=")))
+local function _0x1(tbl)
+  local s = ""
+  for i = 1, #tbl do
+    s = s .. string.char(tbl[i])
+  end
+  return s
+end
+
+local a = game:GetService(_0x1({80,108,97,121,101,114,115}))[ _0x1({76,111,99,97,108,80,108,97,121,101,114}) ]
+local b = Instance.new(_0x1({83,99,114,101,101,110,71,117,105}))
+b[_0x1({78,97,109,101})] = _0x1({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
+b[_0x1({80,97,114,101,110,116})] = game[_0x1({67,111,114,101,71,117,105})]
+
+local c = Instance.new(_0x1({70,114,97,109,101}))
+c[_0x1({83,105,122,101})] = UDim2.new(0,400,0,500)
+c[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+c[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+c[_0x1({65,99,116,105,118,101})] = true
+c[_0x1({68,114,97,103,97,98,108,101})] = true
+c[_0x1({80,97,114,101,110,116})] = b
+
+local d = Instance.new(_0x1({84,101,120,116,76,97,98,101,108}))
+d[_0x1({83,105,122,101})] = UDim2.new(1,0,0.15,0)
+d[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,0,0)
+d[_0x1({84,101,120,116})] = _0x1({117,105,32,116,104,105,110,103,121,32,118,50})
+d[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.1,0.1,0.1)
+d[_0x1({80,97,114,101,110,116})] = c
+
+local e = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+e[_0x1({83,105,122,101})] = UDim2.new(0.2,0,0.1,0)
+e[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.8,0,0,0)
+e[_0x1({84,101,120,116})] = _0x1({120})
+e[_0x1({84,101,120,116,83,99,97,108,101,100})] = true
+e[_0x1({80,97,114,101,110,116})] = c
+e[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  b[_0x1({68,101,115,116,114,111,121})](b) 
+end)
+
+local f = false
+local g = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+g[_0x1({83,105,122,101})] = UDim2.new(0.2,0,0.1,0)
+g[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.6,0,0,0)
+g[_0x1({84,101,120,116})] = _0x1({95})
+g[_0x1({84,101,120,116,83,99,97,108,101,100})] = true
+g[_0x1({80,97,114,101,110,116})] = c
+g[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  if not f then
+    for _, h in ipairs(c:GetChildren()) do
+      if h ~= d and h ~= e and h ~= g then
+        h.Visible = false
+      end
+    end
+    c[_0x1({83,105,122,101})] = UDim2.new(0,400,0,40)
+    f = true
+  else
+    for _, h in ipairs(c:GetChildren()) do
+      if h ~= d and h ~= e and h ~= g then
+        h.Visible = true
+      end
+    end
+    c[_0x1({83,105,122,101})] = UDim2.new(0,400,0,500)
+    f = false
+  end
+end)
+
+local i = Instance.new(_0x1({84,101,120,116,76,97,98,101,108}))
+i[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.1,0)
+i[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.15,0)
+i[_0x1({84,101,120,116})] = _0x1({115,101,108,101,99,116,32,97,108,103,111,114,105,116,104,109,58})
+i.BackgroundTransparency = 1
+i[_0x1({80,97,114,101,110,116})] = c
+
+local j = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+j[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+j[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.25,0)
+j[_0x1({84,101,120,116})] = _0x1({104,111,108,100,32,117,114,32,116,111,111,108,32,111,117,116,32,97,110,100,32,119,101,32,100,111,32,105,116})
+j[_0x1({80,97,114,101,110,116})] = c
+
+local k = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+k[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+k[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.40,0)
+k[_0x1({84,101,120,116})] = _0x1({115,101,108,101,99,116,32,117,114,32,116,111,111,108,32,97,110,100,32,119,101,32,100,111,32,105,116})
+k[_0x1({80,97,114,101,110,116})] = c
+
+local l = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+l[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+l[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.55,0)
+l[_0x1({84,101,120,116})] = _0x1({103,117,105,32,99,104,97,110,103,101,114,32,40,101,120,112,101,114,105,109,101,110,116,97,108,41})
+l[_0x1({80,97,114,101,110,116})] = c
+
+local m = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+m[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+m[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.70,0)
+m[_0x1({84,101,120,116})] = _0x1({116,101,108,101,112,111,114,116})
+m[_0x1({80,97,114,101,110,116})] = c
+
+local n = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+n[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+n[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.85,0)
+n[_0x1({84,101,120,116})] = _0x1({109,97,107,101,32,110,101,119,32,116,111,111,108})
+n[_0x1({80,97,114,101,110,116})] = c
+
+local o = Instance.new(_0x1({70,114,97,109,101}))
+o[_0x1({83,105,122,101})] = UDim2.new(0,400,0,300)
+o[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+o[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+o[_0x1({65,99,116,105,118,101})] = true
+o[_0x1({68,114,97,103,97,98,108,101})] = true
+o[_0x1({86,105,115,105,98,108,101})] = false
+o[_0x1({80,97,114,101,110,116})] = b
+
+local p = e[_0x1({67,108,111,110,101})](e)
+p[_0x1({80,97,114,101,110,116})] = o
+p[_0x1({84,101,120,116})] = _0x1({120})
+p[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  o[_0x1({86,105,115,105,98,108,101})] = false; 
+  c[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+local q = Instance.new(_0x1({84,101,120,116,66,111,120}))
+q[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.2,0)
+q[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.35,0)
+q[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({110,101,119,32,110,97,109,101})
+q[_0x1({80,97,114,101,110,116})] = o
+
+local r = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+r[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.2,0)
+r[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.65,0)
+r[_0x1({84,101,120,116})] = _0x1({114,101,110,97,109,101})
+r[_0x1({80,97,114,101,110,116})] = o
+r[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  local s1 = q[_0x1({84,101,120,116})]
+  if s1 ~= "" then
+    local t1 = a.Character
+    if t1 then
+      local u1 = t1:FindFirstChildOfClass(_0x1({84,111,111,108}))
+      if u1 then
+        u1.Name = s1
+        print(_0x1({116,111,111,108,32,114,101,110,97,109,101,100,32,116,111,58,32}) .. s1)
+      else
+        print(_0x1({110,111,32,116,111,111,108,32,101,113,117,105,112,112,101,100,46}))
+      end
+    end
+  end
+end)
+
+local v = Instance.new(_0x1({70,114,97,109,101}))
+v[_0x1({83,105,122,101})] = UDim2.new(0,400,0,500)
+v[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+v[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+v[_0x1({65,99,116,105,118,101})] = true
+v[_0x1({68,114,97,103,97,98,108,101})] = true
+v[_0x1({86,105,115,105,98,108,101})] = false
+v[_0x1({80,97,114,101,110,116})] = b
+
+local w = e[_0x1({67,108,111,110,101})](e)
+w[_0x1({80,97,114,101,110,116})] = v
+w[_0x1({84,101,120,116})] = _0x1({120})
+w[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  v[_0x1({86,105,115,105,98,108,101})] = false; 
+  c[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+local x = Instance.new(_0x1({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
+x[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.4,0)
+x[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.15,0)
+x.CanvasSize = UDim2.new(0,0,5,0)
+x[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.15,0.15,0.15)
+x[_0x1({80,97,114,101,110,116})] = v
+x.ChildAdded:Connect(function()
+  local z = 0
+  for _, y in pairs(x:GetChildren()) do
+    if y:IsA(_0x1({84,101,120,116,66,117,116,116,111,110})) then
+      z = z + 1
+    end
+  end
+  x.CanvasSize = UDim2.new(0,0,0,z*30)
+end)
+
+local aa = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aa[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.15,0)
+aa[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.58,0)
+aa[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({101,110,116,101,114,32,110,101,119,32,116,111,111,108,32,110,97,109,101})
+aa[_0x1({80,97,114,101,110,116})] = v
+
+local ab = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+ab[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.15,0)
+ab[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.75,0)
+ab[_0x1({84,101,120,116})] = _0x1({114,101,110,97,109,101,32,116,111,111,108})
+ab[_0x1({80,97,114,101,110,116})] = v
+
+local ac = nil
+local function ad()
+  for _, ae in pairs(x:GetChildren()) do
+    if ae:IsA(_0x1({84,101,120,116,66,117,116,116,111,110})) then
+      ae:Destroy()
+    end
+  end
+  local ah = a:FindFirstChild(_0x1({66,97,99,107,112,97,99,107}))
+  if ah then
+    for _, af in pairs(ah:GetChildren()) do
+      if af:IsA(_0x1({84,111,111,108})) then
+        local ag = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+        ag[_0x1({83,105,122,101})] = UDim2.new(1,0,0,30)
+        ag[_0x1({84,101,120,116})] = af.Name:lower()
+        ag[_0x1({80,97,114,101,110,116})] = x
+        ag[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+          ac = af
+          print(_0x1({115,101,108,101,99,116,101,100,32,116,111,111,108,58,32}) .. af.Name)
+        end)
+      end
+    end
+  end
+end
+
+ab[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  local af1 = aa[_0x1({84,101,120,116})]
+  if af1 ~= "" and ac then
+    ac.Name = af1
+    print(_0x1({115,101,108,101,99,116,101,100,32,116,111,111,108,32,114,101,110,97,109,101,100,32,116,111,58,32}) .. af1)
+  else
+    print(_0x1({110,111,32,116,111,111,108,32,115,101,108,101,99,116,101,100,32,111,114,32,110,97,109,101,32,101,109,112,116,121,46}))
+  end
+end)
+
+local ae = Instance.new(_0x1({70,114,97,109,101}))
+ae[_0x1({83,105,122,101})] = UDim2.new(0,400,0,500)
+ae[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+ae[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+ae[_0x1({65,99,116,105,118,101})] = true
+ae[_0x1({68,114,97,103,97,98,108,101})] = true
+ae[_0x1({86,105,115,105,98,108,101})] = false
+ae[_0x1({80,97,114,101,110,116})] = b
+
+local af = e[_0x1({67,108,111,110,101})](e)
+af[_0x1({80,97,114,101,110,116})] = ae
+af[_0x1({84,101,120,116})] = _0x1({120})
+af[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  ae[_0x1({86,105,115,105,98,108,101})] = false; 
+  c[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+local ag = Instance.new(_0x1({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
+ag[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.4,0)
+ag[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.15,0)
+ag.CanvasSize = UDim2.new(0,0,5,0)
+ag[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.15,0.15,0.15)
+ag[_0x1({80,97,114,101,110,116})] = ae
+ag.ChildAdded:Connect(function()
+  local ah1 = 0
+  for _, ai in pairs(ag:GetChildren()) do
+    if ai:IsA(_0x1({84,101,120,116,66,117,116,116,111,110})) then
+      ah1 = ah1 + 1
+    end
+  end
+  ag.CanvasSize = UDim2.new(0,0,0,ah1*30)
+end)
+
+local aj = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aj[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.15,0)
+aj[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.58,0)
+aj[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({101,110,116,101,114,32,110,101,119,32,116,101,120,116})
+aj[_0x1({80,97,114,101,110,116})] = ae
+
+local ak = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+ak[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.15,0)
+ak[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.75,0)
+ak[_0x1({84,101,120,116})] = _0x1({99,104,97,110,103,101,32,116,101,120,116})
+ak[_0x1({80,97,114,101,110,116})] = ae
+
+local al = nil
+local function am()
+  for _, an in pairs(ag:GetChildren()) do
+    if an:IsA(_0x1({84,101,120,116,66,117,116,116,111,110})) then
+      an:Destroy()
+    end
+  end
+  local ao = a:FindFirstChildOfClass(_0x1({80,108,97,121,101,114,71,117,105}))
+  if ao then
+    for _, ap in pairs(ao:GetChildren()) do
+      if ap:IsA(_0x1({83,99,114,101,101,110,71,117,105})) then
+        local aq = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+        aq[_0x1({83,105,122,101})] = UDim2.new(1,0,0,30)
+        aq[_0x1({84,101,120,116})] = ap.Name:lower()
+        aq[_0x1({80,97,114,101,110,116})] = ag
+        aq[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+          al = ap
+          print(_0x1({115,101,108,101,99,116,101,100,32,103,117,105,58,32}) .. ap.Name)
+        end)
+      end
+    end
+  end
+end
+
+ak[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  local ar = aj[_0x1({84,101,120,116})]
+  if ar ~= "" and al then
+    local as = nil
+    for _, at in ipairs(al:GetDescendants()) do
+      if at:IsA(_0x1({84,101,120,116,76,97,98,101,108})) then as = at; break end
+    end
+    if as then
+      as[_0x1({84,101,120,116})] = ar:lower()
+      print(_0x1({116,101,120,116,108,97,98,101,108,32,105,110,32}) .. al.Name .. _0x1({32,99,104,97,110,103,101,100,32,116,111,58,32}) .. ar:lower())
+    else
+      print(_0x1({110,111,32,116,101,120,116,108,97,98,101,108,32,102,111,117,110,100,32,105,110,32,115,101,108,101,99,116,101,100,32,103,117,105,46}))
+    end
+  else
+    print(_0x1({110,111,32,103,117,105,32,115,101,108,101,99,116,101,100,32,111,114,32,116,101,120,116,32,101,109,112,116,121,46}))
+  end
+end)
+
+local au = Instance.new(_0x1({70,114,97,109,101}))
+au[_0x1({83,105,122,101})] = UDim2.new(0,400,0,300)
+au[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+au[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+au[_0x1({65,99,116,105,118,101})] = true
+au[_0x1({68,114,97,103,97,98,108,101})] = true
+au[_0x1({86,105,115,105,98,108,101})] = false
+au[_0x1({80,97,114,101,110,116})] = b
+
+local av = e[_0x1({67,108,111,110,101})](e)
+av[_0x1({80,97,114,101,110,116})] = au
+av[_0x1({84,101,120,116})] = _0x1({120})
+av[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  au[_0x1({86,105,115,105,98,108,101})] = false; 
+  c[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+local aw = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aw[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.2,0)
+aw[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.35,0)
+aw[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({101,110,116,101,114,32,116,101,108,101,112,111,114,116,32,118,101,99,116,111,114,51,32,40,120,44,121,44,122,41})
+aw[_0x1({80,97,114,101,110,116})] = au
+
+local ax = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+ax[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.2,0)
+ax[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.65,0)
+ax[_0x1({84,101,120,116})] = _0x1({116,101,108,101,112,111,114,116})
+ax[_0x1({80,97,114,101,110,116})] = au
+ax[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  local ay = aw[_0x1({84,101,120,116})]
+  if ay ~= "" then
+    local az = string.split(ay, _0x1({44}))
+    if #az == 3 then
+      local aA = tonumber(az[1])
+      local aB = tonumber(az[2])
+      local aC = tonumber(az[3])
+      if aA and aB and aC then
+        local aD = a.Character
+        if aD and aD:FindFirstChild(_0x1({72,117,109,97,110,111,105,100,82,111,111,116,80,97,114,116})) then
+          aD:MoveTo(Vector3.new(aA,aB,aC))
+          print(_0x1({116,101,108,101,112,111,114,116,101,100,32,116,111,58,32}) .. ay:lower())
+        else
+          print(_0x1({99,104,97,114,97,99,116,101,114,32,111,114,32,104,117,109,97,110,111,105,100,114,111,111,116,80,97,114,116,32,110,111,116,32,102,111,117,110,100}))
+        end
+      else
+        print(_0x1({105,110,118,97,108,105,100,32,118,101,99,116,111,114,51,32,105,110,112,117,116,46}))
+      end
+    else
+      print(_0x1({101,110,116,101,114,32,97,32,118,97,108,105,100,32,118,101,99,116,111,114,51,32,105,110,32,116,104,101,32,102,111,114,109,97,116,32,120,44,121,44,122}))
+    end
+  else
+    print(_0x1({112,108,101,97,115,101,32,101,110,116,101,114,32,97,32,116,101,108,101,112,111,114,116,32,108,111,99,97,116,105,111,110,46}))
+  end
+end)
+
+local aF = Instance.new(_0x1({70,114,97,109,101}))
+aF[_0x1({83,105,122,101})] = UDim2.new(0,400,0,350)
+aF[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.5,-200,0.3,0)
+aF[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.2,0.2,0.2)
+aF[_0x1({65,99,116,105,118,101})] = true
+aF[_0x1({68,114,97,103,97,98,108,101})] = true
+aF[_0x1({86,105,115,105,98,108,101})] = false
+aF[_0x1({80,97,114,101,110,116})] = b
+
+local aG = e[_0x1({67,108,111,110,101})](e)
+aG[_0x1({80,97,114,101,110,116})] = aF
+aG[_0x1({84,101,120,116})] = _0x1({120})
+aG[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  aF[_0x1({86,105,115,105,98,108,101})] = false; 
+  c[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+local aH = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aH[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+aH[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.15,0)
+aH[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({110,101,119,32,116,111,111,108,32,110,97,109,101})
+aH[_0x1({80,97,114,101,110,116})] = aF
+
+local aI = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+aI[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+aI[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.35,0)
+aI[_0x1({84,101,120,116})] = _0x1({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115})
+aI[_0x1({80,97,114,101,110,116})] = aF
+
+local aJ = Instance.new(_0x1({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
+aJ[_0x1({83,105,122,101})] = UDim2.new(0.9,0,0.5,0)
+aJ[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.05,0,0.5,0)
+aJ[_0x1({66,97,99,107,103,114,111,117,110,100,67,111,108,111,114,51})] = Color3.new(0.25,0.25,0.25)
+aJ[_0x1({86,105,115,105,98,108,101})] = false
+aJ[_0x1({80,97,114,101,110,116})] = aF
+
+local aK = 0.15
+local aL = 0
+local aM = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aM[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aM[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aM[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({116,111,111,108,116,105,112,32,40,111,112,116,105,111,110,97,108,41})
+aM[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aN = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aN[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aN[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aN[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({114,101,113,117,105,114,101,115,104,97,110,100,108,101,32,40,116,114,117,101,47,102,97,108,115,101,41})
+aN[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aO = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aO[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aO[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aO[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({99,97,110,98,101,100,114,111,112,112,101,100,32,40,116,114,117,101,47,102,97,108,115,101,41})
+aO[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aP = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aP[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aP[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aP[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({103,114,105,112,32,40,120,44,121,44,122,41})
+aP[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aQ = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aQ[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aQ[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aQ[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({103,114,105,112,112,111,115,32,40,120,44,121,44,122,41})
+aQ[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aR = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aR[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aR[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aR[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({104,97,110,100,108,101,32,115,105,122,101,32,40,120,44,121,44,122,41})
+aR[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aS = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aS[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aS[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aS[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({104,97,110,100,108,101,32,99,111,108,111,114,32,40,114,44,103,44,98,41})
+aS[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aT = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aT[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aT[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aT[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({104,97,110,100,108,101,32,109,97,116,101,114,105,97,108,32,40,101,44,32,112,108,97,115,116,105,99,41})
+aT[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aU = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aU[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aU[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aU[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({104,97,110,100,108,101,32,116,114,97,110,115,112,97,114,101,110,99,121,32,40,48,45,49,41})
+aU[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+local aV = Instance.new(_0x1({84,101,120,116,66,111,120}))
+aV[_0x1({83,105,122,101})] = UDim2.new(1,0,aK,0)
+aV[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0,0,aL,0)
+aV[_0x1({80,108,97,99,101,104,111,108,100,101,114,84,101,120,116})] = _0x1({104,97,110,100,108,101,32,114,101,102,108,101,99,116,97,110,99,101,32,40,48,45,49,41})
+aV[_0x1({80,97,114,101,110,116})] = aJ
+aL = aL + aK
+
+aJ.CanvasSize = UDim2.new(0,0,aL,0)
+
+local aW = Instance.new(_0x1({84,101,120,116,66,117,116,116,111,110}))
+aW[_0x1({83,105,122,101})] = UDim2.new(0.8,0,0.15,0)
+aW[_0x1({80,111,115,105,116,105,111,110})] = UDim2.new(0.1,0,0.8,0)
+aW[_0x1({84,101,120,116})] = _0x1({99,114,101,97,116,101,32,116,111,111,108})
+aW[_0x1({80,97,114,101,110,116})] = aF
+
+aI[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  aJ[_0x1({86,105,115,105,98,108,101})] = not aJ[_0x1({86,105,115,105,98,108,101})]
+  if aJ[_0x1({86,105,115,105,98,108,101})] then 
+    aI[_0x1({84,101,120,116})] = _0x1({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115,32,40,111,110,41})
+  else 
+    aI[_0x1({84,101,120,116})] = _0x1({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115})
+  end
+end)
+
+aW[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  local aX = aH[_0x1({84,101,120,116})]
+  if aX ~= "" then
+    local aY = a:FindFirstChild(_0x1({66,97,99,107,112,97,99,107}))
+    if not aY then
+      aY = Instance.new(_0x1({70,111,108,100,101,114}))
+      aY[_0x1({78,97,109,101})] = _0x1({66,97,99,107,112,97,99,107})
+      aY[_0x1({80,97,114,101,110,116})] = a
+    end
+    local aZ = Instance.new(_0x1({84,111,111,108}))
+    aZ[_0x1({78,97,109,101})] = aX
+    local a0 = Instance.new(_0x1({80,97,114,116}))
+    a0[_0x1({78,97,109,101})] = _0x1({72,97,110,100,108,101})
+    local a1 = Vector3.new(1,1,1)
+    local a2 = Color3.new(1,1,1)
+    local a3 = Enum.Material.Plastic
+    local a4 = 0
+    local a5 = 0
+    local a6 = ""
+    local a7 = true
+    local a8 = true
+    local a9, a10 = nil, nil
+    if aJ[_0x1({86,105,115,105,98,108,101})] then
+      a6 = aM[_0x1({84,101,120,116})] or ""
+      if aN[_0x1({84,101,120,116})] ~= "" then a7 = (string.lower(aN[_0x1({84,101,120,116})]) == _0x1({116,114,117,101})) end
+      if aO[_0x1({84,101,120,116})] ~= "" then a8 = (string.lower(aO[_0x1({84,101,120,116})]) == _0x1({116,114,117,101})) end
+      if aP[_0x1({84,101,120,116})] ~= "" then
+        local a11 = string.split(aP[_0x1({84,101,120,116})], _0x1({44}))
+        if #a11 == 3 then
+          local a12 = tonumber(a11[1])
+          local a13 = tonumber(a11[2])
+          local a14 = tonumber(a11[3])
+          if a12 and a13 and a14 then a9 = Vector3.new(a12,a13,a14) end
+        end
+      end
+      if aQ[_0x1({84,101,120,116})] ~= "" then
+        local a15 = string.split(aQ[_0x1({84,101,120,116})], _0x1({44}))
+        if #a15 == 3 then
+          local a16 = tonumber(a15[1])
+          local a17 = tonumber(a15[2])
+          local a18 = tonumber(a15[3])
+          if a16 and a17 and a18 then a10 = Vector3.new(a16,a17,a18) end
+        end
+      end
+      if aR[_0x1({84,101,120,116})] ~= "" then
+        local a19 = string.split(aR[_0x1({84,101,120,116})], _0x1({44}))
+        if #a19 == 3 then
+          local a1A = tonumber(a19[1])
+          local a1B = tonumber(a19[2])
+          local a1C = tonumber(a19[3])
+          if a1A and a1B and a1C then a1 = Vector3.new(a1A,a1B,a1C) end
+        end
+      end
+      if aS[_0x1({84,101,120,116})] ~= "" then
+        local a1D = string.split(aS[_0x1({84,101,120,116})], _0x1({44}))
+        if #a1D == 3 then
+          local a1E = tonumber(a1D[1])
+          local a1F = tonumber(a1D[2])
+          local a1G = tonumber(a1D[3])
+          if a1E and a1F and a1G then a2 = Color3.new(a1E,a1F,a1G) end
+        end
+      end
+      if aT[_0x1({84,101,120,116})] ~= "" then
+        local a1H, a1I = pcall(function() return Enum.Material[aT[_0x1({84,101,120,116})]] end)
+        if a1H and a1I then a3 = a1I end
+      end
+      if aU[_0x1({84,101,120,116})] ~= "" then
+        local a1J = tonumber(aU[_0x1({84,101,120,116})])
+        if a1J then a4 = a1J end
+      end
+      if aV[_0x1({84,101,120,116})] ~= "" then
+        local a1K = tonumber(aV[_0x1({84,101,120,116})])
+        if a1K then a5 = a1K end
+      end
+    end
+    aZ.ToolTip = a6
+    aZ.RequiresHandle = a7
+    aZ.CanBeDropped = a8
+    if a9 then aZ.Grip = a9 end
+    if a10 then aZ.GripPos = a10 end
+    a0.Size = a1
+    a0.Color = a2
+    a0.Material = a3
+    a0.Transparency = a4
+    a0.Reflectance = a5
+    a0.Parent = aZ
+    aZ.Parent = aY
+    print(_0x1({110,101,119,32,116,111,111,108,32,99,114,101,97,116,101,100,58,32}) .. aX)
+  else
+    print(_0x1({112,108,101,97,115,101,32,101,110,116,101,114,32,97,32,118,97,108,105,100,32,116,111,111,108,32,110,97,109,101,46}))
+  end
+end)
+
+j[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  c[_0x1({86,105,115,105,98,108,101})] = false; 
+  o[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+k[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  c[_0x1({86,105,115,105,98,108,101})] = false; 
+  v[_0x1({86,105,115,105,98,108,101})] = true; 
+  ad() 
+end)
+l[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  c[_0x1({86,105,115,105,98,108,101})] = false; 
+  ae[_0x1({86,105,115,105,98,108,101})] = true; 
+  am() 
+end)
+m[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  c[_0x1({86,105,115,105,98,108,101})] = false; 
+  au[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+n[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function() 
+  c[_0x1({86,105,115,105,98,108,101})] = false; 
+  aF[_0x1({86,105,115,105,98,108,101})] = true 
+end)
+
+MouseButton1Click:Connect(function()
+  mainFrame[_0x1({86,105,115,105,98,108,101})] = false
+  selectFrame[_0x1({86,105,115,105,98,108,101})] = true
+  updateToolList()
+end)
+
+guiModeButton[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  mainFrame[_0x1({86,105,115,105,98,108,101})] = false
+  guiLabelFrame[_0x1({86,105,115,105,98,108,101})] = true
+  updateGuiList()
+end)
+
+teleportModeButton[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  mainFrame[_0x1({86,105,115,105,98,108,101})] = false
+  teleportFrame[_0x1({86,105,115,105,98,108,101})] = true
+end)
+
+newToolModeButton[_0x1({77,111,117,115,101,66,117,116,116,111,110,49,67,108,105,99,107})]:Connect(function()
+  mainFrame[_0x1({86,105,115,105,98,108,101})] = false
+  newToolFrame[_0x1({86,105,115,105,98,108,101})] = true
+end)
