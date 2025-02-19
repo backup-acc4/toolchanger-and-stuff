@@ -33,8 +33,8 @@ e.Position = UDim2.new(0.8, 0, 0, 0)
 e.Text = dec({120})
 e.TextScaled = true
 e.Parent = c
-e.MouseButton1Click:Connect(function() 
-    b:Destroy() 
+e.MouseButton1Click:Connect(function()
+    b:Destroy()
 end)
 
 local f = false
@@ -46,18 +46,18 @@ g.TextScaled = true
 g.Parent = c
 g.MouseButton1Click:Connect(function()
     if not f then
-        for _, h in ipairs(c:GetChildren()) do 
-            if h ~= d and h ~= e and h ~= g then 
-                h.Visible = false 
-            end 
+        for _, h in ipairs(c:GetChildren()) do
+            if h ~= d and h ~= e and h ~= g then
+                h.Visible = false
+            end
         end
         c.Size = UDim2.new(0, 400, 0, 40)
         f = true
     else
-        for _, h in ipairs(c:GetChildren()) do 
-            if h ~= d and h ~= e and h ~= g then 
-                h.Visible = true 
-            end 
+        for _, h in ipairs(c:GetChildren()) do
+            if h ~= d and h ~= e and h ~= g then
+                h.Visible = true
+            end
         end
         c.Size = UDim2.new(0, 400, 0, 500)
         f = false
@@ -71,35 +71,70 @@ i.Text = dec({115,101,108,101,99,116,32,97,108,103,111,114,105,116,104,109,58})
 i.BackgroundTransparency = 1
 i.Parent = c
 
+-- Six evenly spaced buttons (12.5% each)
+local btnHeight = 0.125
+local btnPositions = {0.25, 0.375, 0.5, 0.625, 0.75, 0.875}
+
 local j = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-j.Size = UDim2.new(0.8, 0, 0.15, 0)
-j.Position = UDim2.new(0.1, 0, 0.25, 0)
+j.Size = UDim2.new(0.8, 0, btnHeight, 0)
+j.Position = UDim2.new(0.1, 0, btnPositions[1], 0)
 j.Text = dec({104,111,108,100,32,117,114,32,116,111,111,108,32,111,117,116,32,97,110,100,32,119,101,32,100,111,32,105,116})
 j.Parent = c
 
 local k = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-k.Size = UDim2.new(0.8, 0, 0.15, 0)
-k.Position = UDim2.new(0.1, 0, 0.40, 0)
+k.Size = UDim2.new(0.8, 0, btnHeight, 0)
+k.Position = UDim2.new(0.1, 0, btnPositions[2], 0)
 k.Text = dec({115,101,108,101,99,116,32,117,114,32,116,111,111,108,32,97,110,100,32,119,101,32,100,111,32,105,116})
 k.Parent = c
 
 local l = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-l.Size = UDim2.new(0.8, 0, 0.15, 0)
-l.Position = UDim2.new(0.1, 0, 0.55, 0)
+l.Size = UDim2.new(0.8, 0, btnHeight, 0)
+l.Position = UDim2.new(0.1, 0, btnPositions[3], 0)
 l.Text = dec({103,117,105,32,99,104,97,110,103,101,114,32,40,101,120,112,101,114,105,109,101,110,116,97,108,41})
 l.Parent = c
 
 local m = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-m.Size = UDim2.new(0.8, 0, 0.15, 0)
-m.Position = UDim2.new(0.1, 0, 0.70, 0)
+m.Size = UDim2.new(0.8, 0, btnHeight, 0)
+m.Position = UDim2.new(0.1, 0, btnPositions[4], 0)
 m.Text = dec({116,101,108,101,112,111,114,116})
 m.Parent = c
 
 local n = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-n.Size = UDim2.new(0.8, 0, 0.15, 0)
-n.Position = UDim2.new(0.1, 0, 0.85, 0)
+n.Size = UDim2.new(0.8, 0, btnHeight, 0)
+n.Position = UDim2.new(0.1, 0, btnPositions[5], 0)
 n.Text = dec({109,97,107,101,32,110,101,119,32,116,111,111,108})
 n.Parent = c
+
+-- The f3x button is now replaced with the following code.
+local f3x = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
+f3x.Size = UDim2.new(0.8, 0, btnHeight, 0)
+f3x.Position = UDim2.new(0.1, 0, btnPositions[6], 0)
+f3x.Text = dec({102,51,120})
+f3x.Parent = c
+f3x.MouseButton1Click:Connect(function()
+    local backpack = game:GetService(dec({80,108,97,121,101,114,115})).LocalPlayer:WaitForChild(dec({66,97,99,107,112,97,99,107}))
+    
+    local hammer = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    hammer.Name = dec({72,97,109,109,101,114})
+    hammer.BinType = 4
+    hammer.Parent = backpack
+
+    local cloneTool = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    cloneTool.Name = dec({67,108,111,110,101})
+    cloneTool.BinType = 3
+    cloneTool.Parent = backpack
+
+    local grabTool = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    grabTool.Name = dec({71,114,97,98})
+    grabTool.BinType = 2
+    grabTool.Parent = backpack
+
+    print(dec({72,111,112,112,101,114,66,105,110,115,32,97,100,100,101,100,58,32,72,97,109,109,101,114,44,32,67,108,111,110,101,44,32,71,114,97,98}))
+end)
+
+--------------------------------------------------
+-- The rest of the UI remains unchanged below --
+--------------------------------------------------
 
 local o = Instance.new(dec({70,114,97,109,101}))
 o.Size = UDim2.new(0, 400, 0, 300)
@@ -113,9 +148,9 @@ o.Parent = b
 local p = e:Clone()
 p.Parent = o
 p.Text = dec({120})
-p.MouseButton1Click:Connect(function() 
-    o.Visible = false; 
-    c.Visible = true 
+p.MouseButton1Click:Connect(function()
+    o.Visible = false
+    c.Visible = true
 end)
 
 local q = Instance.new(dec({84,101,120,116,66,111,120}))
@@ -157,9 +192,9 @@ v.Parent = b
 local w = e:Clone()
 w.Parent = v
 w.Text = dec({120})
-w.MouseButton1Click:Connect(function() 
-    v.Visible = false; 
-    c.Visible = true 
+w.MouseButton1Click:Connect(function()
+    v.Visible = false
+    c.Visible = true
 end)
 
 local x = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
@@ -170,10 +205,10 @@ x.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
 x.Parent = v
 x.ChildAdded:Connect(function()
     local z = 0
-    for _, y in pairs(x:GetChildren()) do 
-        if y:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then 
-            z = z + 1 
-        end 
+    for _, y in pairs(x:GetChildren()) do
+        if y:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
+            z = z + 1
+        end
     end
     x.CanvasSize = UDim2.new(0, 0, 0, z * 30)
 end)
@@ -192,10 +227,10 @@ ab.Parent = v
 
 local ac = nil
 local function ad()
-    for _, ae in pairs(x:GetChildren()) do 
-        if ae:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then 
-            ae:Destroy() 
-        end 
+    for _, ae in pairs(x:GetChildren()) do
+        if ae:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
+            ae:Destroy()
+        end
     end
     local ah = a:FindFirstChild(dec({66,97,99,107,112,97,99,107}))
     if ah then
@@ -235,9 +270,9 @@ ae.Parent = b
 local af = e:Clone()
 af.Parent = ae
 af.Text = dec({120})
-af.MouseButton1Click:Connect(function() 
-    ae.Visible = false; 
-    c.Visible = true 
+af.MouseButton1Click:Connect(function()
+    ae.Visible = false
+    c.Visible = true
 end)
 
 local ag = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
@@ -248,10 +283,10 @@ ag.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
 ag.Parent = ae
 ag.ChildAdded:Connect(function()
     local ah1 = 0
-    for _, ai in pairs(ag:GetChildren()) do 
-        if ai:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then 
-            ah1 = ah1 + 1 
-        end 
+    for _, ai in pairs(ag:GetChildren()) do
+        if ai:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
+            ah1 = ah1 + 1
+        end
     end
     ag.CanvasSize = UDim2.new(0, 0, 0, ah1 * 30)
 end)
@@ -270,10 +305,10 @@ ak.Parent = ae
 
 local al = nil
 local function am()
-    for _, an in pairs(ag:GetChildren()) do 
-        if an:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then 
-            an:Destroy() 
-        end 
+    for _, an in pairs(ag:GetChildren()) do
+        if an:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
+            an:Destroy()
+        end
     end
     local ao = a:FindFirstChildOfClass(dec({80,108,97,121,101,114,71,117,105}))
     if ao then
@@ -296,9 +331,9 @@ ak.MouseButton1Click:Connect(function()
     if ar ~= "" and al then
         local as = nil
         for _, at in ipairs(al:GetDescendants()) do
-            if at:IsA(dec({84,101,120,116,76,97,98,101,108})) then 
-                as = at; 
-                break 
+            if at:IsA(dec({84,101,120,116,76,97,98,101,108})) then
+                as = at
+                break
             end
         end
         if as then
@@ -324,9 +359,9 @@ au.Parent = b
 local av = e:Clone()
 av.Parent = au
 av.Text = dec({120})
-av.MouseButton1Click:Connect(function() 
-    au.Visible = false; 
-    c.Visible = true 
+av.MouseButton1Click:Connect(function()
+    au.Visible = false
+    c.Visible = true
 end)
 
 local aw = Instance.new(dec({84,101,120,116,66,111,120}))
@@ -379,9 +414,9 @@ aF.Parent = b
 local aG = e:Clone()
 aG.Parent = aF
 aG.Text = dec({120})
-aG.MouseButton1Click:Connect(function() 
-    aF.Visible = false; 
-    c.Visible = true 
+aG.MouseButton1Click:Connect(function()
+    aF.Visible = false
+    c.Visible = true
 end)
 
 local aH = Instance.new(dec({84,101,120,116,66,111,120}))
@@ -524,7 +559,9 @@ aW.MouseButton1Click:Connect(function()
                     local a12 = tonumber(a11[1])
                     local a13 = tonumber(a11[2])
                     local a14 = tonumber(a11[3])
-                    if a12 and a13 and a14 then a9 = Vector3.new(a12, a13, a14) end
+                    if a12 and a13 and a14 then
+                        a9 = Vector3.new(a12, a13, a14)
+                    end
                 end
             end
             if aQ.Text ~= "" then
@@ -533,7 +570,9 @@ aW.MouseButton1Click:Connect(function()
                     local a16 = tonumber(a15[1])
                     local a17 = tonumber(a15[2])
                     local a18 = tonumber(a15[3])
-                    if a16 and a17 and a18 then a10 = Vector3.new(a16, a17, a18) end
+                    if a16 and a17 and a18 then
+                        a10 = Vector3.new(a16, a17, a18)
+                    end
                 end
             end
             if aR.Text ~= "" then
@@ -542,7 +581,9 @@ aW.MouseButton1Click:Connect(function()
                     local a1A = tonumber(a19[1])
                     local a1B = tonumber(a19[2])
                     local a1C = tonumber(a19[3])
-                    if a1A and a1B and a1C then a1 = Vector3.new(a1A, a1B, a1C) end
+                    if a1A and a1B and a1C then
+                        a1 = Vector3.new(a1A, a1B, a1C)
+                    end
                 end
             end
             if aS.Text ~= "" then
@@ -551,12 +592,16 @@ aW.MouseButton1Click:Connect(function()
                     local a1E = tonumber(a1D[1])
                     local a1F = tonumber(a1D[2])
                     local a1G = tonumber(a1D[3])
-                    if a1E and a1F and a1G then a2 = Color3.new(a1E, a1F, a1G) end
+                    if a1E and a1F and a1G then
+                        a2 = Color3.new(a1E, a1F, a1G)
+                    end
                 end
             end
             if aT.Text ~= "" then
                 local a1H, a1I = pcall(function() return Enum.Material[aT.Text] end)
-                if a1H and a1I then a3 = a1I end
+                if a1H and a1I then
+                    a3 = a1I
+                end
             end
             if aU.Text ~= "" then
                 local a1J = tonumber(aU.Text)
@@ -585,29 +630,30 @@ aW.MouseButton1Click:Connect(function()
     end
 end)
 
-j.MouseButton1Click:Connect(function() 
-    c.Visible = false; 
-    o.Visible = true 
+j.MouseButton1Click:Connect(function()
+    c.Visible = false
+    o.Visible = true
 end)
-k.MouseButton1Click:Connect(function() 
-    c.Visible = false; 
-    v.Visible = true; 
-    ad() 
+k.MouseButton1Click:Connect(function()
+    c.Visible = false
+    v.Visible = true
+    ad()
 end)
-l.MouseButton1Click:Connect(function() 
-    c.Visible = false; 
-    ae.Visible = true; 
-    am() 
+l.MouseButton1Click:Connect(function()
+    c.Visible = false
+    ae.Visible = true
+    am()
 end)
-m.MouseButton1Click:Connect(function() 
-    c.Visible = false; 
-    au.Visible = true 
+m.MouseButton1Click:Connect(function()
+    c.Visible = false
+    au.Visible = true
 end)
-n.MouseButton1Click:Connect(function() 
-    c.Visible = false; 
-    aF.Visible = true 
+n.MouseButton1Click:Connect(function()
+    c.Visible = false
+    aF.Visible = true
 end)
 
+-- Legacy code (if needed):
 MouseButton1Click:Connect(function()
     mainFrame.Visible = false
     selectFrame.Visible = true
