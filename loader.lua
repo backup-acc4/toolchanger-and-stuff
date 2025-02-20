@@ -17,12 +17,12 @@ end
 local function send(text)
 	local StarterGui = game:GetService("StarterGui")
 	StarterGui:SetCore("SendNotification",{
-		Title = "TOOLCHANGER v2 thing made by backup-acc4/interactable object/kev", -- You can remove this, idc
+		Title = "loaded", -- You can remove this, idc
 		Text = text,
 		Duration = 5
 	})
 end
-send("script loaded")
+send("TOOLCHANGER v2 thing made by backup-acc4/interactable object/kev")
 local a = game:GetService(dec({80,108,97,121,101,114,115}))[dec({76,111,99,97,108,80,108,97,121,101,114})]
 local b = Instance.new(dec({83,99,114,101,101,110,71,117,105}))
 b.Name = dec({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
