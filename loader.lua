@@ -17,7 +17,7 @@ end
 local function send(text)
 	local StarterGui = game:GetService("StarterGui")
 	StarterGui:SetCore("SendNotification",{
-		Title = "TOOLCHANGER v2 thing made by backup-acc4", -- You can remove this, idc
+		Title = "TOOLCHANGER v2 thing made by backup-acc4/interactable object/kev", -- You can remove this, idc
 		Text = text,
 		Duration = 5
 	})
