@@ -5,13 +5,22 @@
 --anyways take this early release v2
 --bongbong
 --mrman i dare you to not skid :imp-evil:
-local a = game:GetService("Players").LocalPlayer
-local b = Instance.new("ScreenGui")
-b.Name = "ui thingy v1.5"
-b.Parent = game.CoreGui
+-- Helper function to decode an array of ASCII decimals into a string.
+local function dec(arr)
+    local s = ""
+    for i = 1, #arr do
+        s = s .. string.char(arr[i])
+    end
+    return s
+end
+
+local a = game:GetService(dec({80,108,97,121,101,114,115}))[dec({76,111,99,97,108,80,108,97,121,101,114})]
+local b = Instance.new(dec({83,99,114,101,101,110,71,117,105}))
+b.Name = dec({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
+b.Parent = game[dec({67,111,114,101,71,117,105})]
 
 -- main ui frame enlarged to 600px tall
-local c = Instance.new("Frame")
+local c = Instance.new(dec({70,114,97,109,101}))
 c.Size = UDim2.new(0, 400, 0, 600)
 c.Position = UDim2.new(0.5, -200, 0.3, 0)
 c.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -19,17 +28,17 @@ c.Active = true
 c.Draggable = true
 c.Parent = b
 
-local d = Instance.new("TextLabel")
+local d = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
 d.Size = UDim2.new(1, 0, 0.15, 0)
 d.Position = UDim2.new(0, 0, 0, 0)
-d.Text = "ui thingy v2"
+d.Text = dec({117,105,32,116,104,105,110,103,121,32,118,50})
 d.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 d.Parent = c
 
-local e = Instance.new("TextButton")
+local e = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 e.Size = UDim2.new(0.2, 0, 0.1, 0)
 e.Position = UDim2.new(0.8, 0, 0, 0)
-e.Text = "x"
+e.Text = dec({120})
 e.TextScaled = true
 e.Parent = c
 e.MouseButton1Click:Connect(function()
@@ -37,10 +46,10 @@ e.MouseButton1Click:Connect(function()
 end)
 
 local f = false
-local g = Instance.new("TextButton")
+local g = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 g.Size = UDim2.new(0.2, 0, 0.1, 0)
 g.Position = UDim2.new(0.6, 0, 0, 0)
-g.Text = "_"
+g.Text = dec({95})
 g.TextScaled = true
 g.Parent = c
 g.MouseButton1Click:Connect(function()
@@ -63,10 +72,10 @@ g.MouseButton1Click:Connect(function()
     end
 end)
 
-local i = Instance.new("TextLabel")
+local i = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
 i.Size = UDim2.new(0, 320, 0, 60)
 i.Position = UDim2.new(0.1, 0, 0.15, 0)
-i.Text = "select algorithm:"
+i.Text = dec({115,101,108,101,99,116,32,97,108,103,111,114,105,116,104,109,58})
 i.BackgroundTransparency = 1
 i.Parent = c
 
@@ -74,73 +83,73 @@ i.Parent = c
 local btnPositions = {0.25, 0.357, 0.464, 0.571, 0.679, 0.786, 0.893}
 local btnHeight = 0.107
 
-local j = Instance.new("TextButton")
+local j = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 j.Size = UDim2.new(0.8, 0, btnHeight, 0)
 j.Position = UDim2.new(0.1, 0, btnPositions[1], 0)
-j.Text = "hold ur tool out and we do it"
+j.Text = dec({104,111,108,100,32,117,114,32,116,111,111,108,32,111,117,116,32,97,110,100,32,119,101,32,100,111,32,105,116})
 j.Parent = c
 
-local k = Instance.new("TextButton")
+local k = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 k.Size = UDim2.new(0.8, 0, btnHeight, 0)
 k.Position = UDim2.new(0.1, 0, btnPositions[2], 0)
-k.Text = "select ur tool and we do it"
+k.Text = dec({115,101,108,101,99,116,32,117,114,32,116,111,111,108,32,97,110,100,32,119,101,32,100,111,32,105,116})
 k.Parent = c
 
-local l = Instance.new("TextButton")
+local l = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 l.Size = UDim2.new(0.8, 0, btnHeight, 0)
 l.Position = UDim2.new(0.1, 0, btnPositions[3], 0)
-l.Text = "gui changer (experimental)"
+l.Text = dec({103,117,105,32,99,104,97,110,103,101,114,32,40,101,120,112,101,114,105,109,101,110,116,97,108,41})
 l.Parent = c
 
-local m = Instance.new("TextButton")
+local m = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 m.Size = UDim2.new(0.8, 0, btnHeight, 0)
 m.Position = UDim2.new(0.1, 0, btnPositions[4], 0)
-m.Text = "teleport"
+m.Text = dec({116,101,108,101,112,111,114,116})
 m.Parent = c
 
-local n = Instance.new("TextButton")
+local n = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 n.Size = UDim2.new(0.8, 0, btnHeight, 0)
 n.Position = UDim2.new(0.1, 0, btnPositions[5], 0)
-n.Text = "make new tool"
+n.Text = dec({109,97,107,101,32,110,101,119,32,116,111,111,108})
 n.Parent = c
 
-local f3x = Instance.new("TextButton")
+local f3x = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 f3x.Size = UDim2.new(0.8, 0, btnHeight, 0)
 f3x.Position = UDim2.new(0.1, 0, btnPositions[6], 0)
-f3x.Text = "f3x"
+f3x.Text = dec({102,51,120})
 f3x.Parent = c
 f3x.MouseButton1Click:Connect(function()
-    local backpack = a:WaitForChild("Backpack")
+    local backpack = a:WaitForChild(dec({66,97,99,107,112,97,99,107}))
     
-    local hammer = Instance.new("HopperBin")
-    hammer.Name = "hammer"
+    local hammer = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    hammer.Name = dec({104,97,109,109,101,114})
     hammer.BinType = 4
     hammer.Parent = backpack
 
-    local cloneTool = Instance.new("HopperBin")
-    cloneTool.Name = "clone"
+    local cloneTool = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    cloneTool.Name = dec({99,108,111,110,101})
     cloneTool.BinType = 3
     cloneTool.Parent = backpack
 
-    local grabTool = Instance.new("HopperBin")
-    grabTool.Name = "grab"
+    local grabTool = Instance.new(dec({72,111,112,112,101,114,66,105,110}))
+    grabTool.Name = dec({103,114,97,98})
     grabTool.BinType = 2
     grabTool.Parent = backpack
 
-    print("hopperbins added: hammer, clone, grab")
+    print(dec({104,111,112,112,101,114,98,105,110,115,32,97,100,100,101,100,58,32,104,97,109,109,101,114,44,32,99,108,111,110,101,44,32,103,114,97,98}))
 end)
 
 -- new "humanoid editor" button replaces the previous walkspeed button
-local heButton = Instance.new("TextButton")
+local heButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 heButton.Size = UDim2.new(0.8, 0, btnHeight, 0)
 heButton.Position = UDim2.new(0.1, 0, btnPositions[7], 0)
-heButton.Text = "humanoid editor"
+heButton.Text = dec({104,117,109,97,110,111,105,100,32,101,100,105,116,111,114})
 heButton.Parent = c
 
 --------------------------------------------------
 -- humanoid editor frame
 --------------------------------------------------
-local humanoidEditorFrame = Instance.new("Frame")
+local humanoidEditorFrame = Instance.new(dec({70,114,97,109,101}))
 humanoidEditorFrame.Size = UDim2.new(0, 400, 0, 400)
 humanoidEditorFrame.Position = UDim2.new(0.5, -200, 0.3, 0)
 humanoidEditorFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -151,16 +160,16 @@ humanoidEditorFrame.Parent = b
 
 local heClose = e:Clone()
 heClose.Parent = humanoidEditorFrame
-heClose.Text = "x"
+heClose.Text = dec({120})
 heClose.MouseButton1Click:Connect(function()
     humanoidEditorFrame.Visible = false
     c.Visible = true
 end)
 
 -- list of humanoid properties to edit (property names must remain unchanged for the api)
-local humanoidProperties = {"WalkSpeed", "JumpPower", "HipHeight", "Health", "MaxHealth"}
+local humanoidProperties = {dec({87,97,108,107,83,112,101,101,100}), dec({74,117,109,112,80,111,119,101,114}), dec({72,105,112,72,101,105,103,104,116}), dec({72,101,97,108,116,104}), dec({77,97,120,72,101,97,108,116,104})}
 
-local heScrollingFrame = Instance.new("ScrollingFrame")
+local heScrollingFrame = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
 heScrollingFrame.Size = UDim2.new(0.9, 0, 0.7, 0)
 heScrollingFrame.Position = UDim2.new(0.05, 0, 0.15, 0)
 heScrollingFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
@@ -169,47 +178,46 @@ heScrollingFrame.Parent = humanoidEditorFrame
 
 local heElements = {}
 for i, prop in ipairs(humanoidProperties) do
-    local label = Instance.new("TextLabel")
+    local label = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
     label.Size = UDim2.new(0.4, 0, 0, 30)
-    label.Position = UDim2.new(0, 0, 0, (i-1) * 35)
+    label.Position = UDim2.new(0, 0, 0, (i - 1) * 35)
     label.Text = string.lower(prop)
     label.BackgroundTransparency = 1
     label.Parent = heScrollingFrame
 
-    local textbox = Instance.new("TextBox")
+    local textbox = Instance.new(dec({84,101,120,116,66,111,120}))
     textbox.Size = UDim2.new(0.5, 0, 0, 30)
-    textbox.Position = UDim2.new(0.45, 0, 0, (i-1) * 35)
-    textbox.PlaceholderText = "value"
+    textbox.Position = UDim2.new(0.45, 0, 0, (i - 1) * 35)
+    textbox.PlaceholderText = dec({118,97,108,117,101})
     textbox.Parent = heScrollingFrame
 
     heElements[prop] = textbox
 end
 
-local heApplyButton = Instance.new("TextButton")
+local heApplyButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 heApplyButton.Size = UDim2.new(0.8, 0, 0.15, 0)
 heApplyButton.Position = UDim2.new(0.1, 0, 0.88, 0)
-heApplyButton.Text = "apply changes"
+heApplyButton.Text = dec({97,112,112,108,121,32,99,104,97,110,103,101,115})
 heApplyButton.Parent = humanoidEditorFrame
 heApplyButton.MouseButton1Click:Connect(function()
     local character = a.Character or a.CharacterAdded:Wait()
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local humanoid = character:FindFirstChildOfClass(dec({72,117,109,97,110,111,105,100}))
     if humanoid then
         for _, prop in ipairs(humanoidProperties) do
             local newVal = tonumber(heElements[prop].Text)
             if newVal then
                 humanoid[prop] = newVal
-                print(string.lower(prop) .. " set to " .. newVal)
+                print(string.lower(prop) .. dec({32,115,101,116,32,116,111,58,32}) .. newVal)
             end
         end
     else
-        print("humanoid not found")
+        print(dec({104,117,109,97,110,111,105,100,32,110,111,116,32,102,111,117,110,100}))
     end
 end)
 
--- function to refresh the humanoid editor with current values
 local function refreshHumanoidEditor()
     local character = a.Character or a.CharacterAdded:Wait()
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local humanoid = character:FindFirstChildOfClass(dec({72,117,109,97,110,111,105,100}))
     if humanoid then
         for _, prop in ipairs(humanoidProperties) do
             local value = humanoid[prop]
@@ -218,7 +226,6 @@ local function refreshHumanoidEditor()
     end
 end
 
--- open the humanoid editor when the button is clicked
 heButton.MouseButton1Click:Connect(function()
     refreshHumanoidEditor()
     humanoidEditorFrame.Visible = true
@@ -229,7 +236,7 @@ end)
 -- the rest of the ui frames remain unchanged below
 --------------------------------------------------
 
-local o = Instance.new("Frame")
+local o = Instance.new(dec({70,114,97,109,101}))
 o.Size = UDim2.new(0, 400, 0, 300)
 o.Position = UDim2.new(0.5, -200, 0.3, 0)
 o.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -240,40 +247,40 @@ o.Parent = b
 
 local p = e:Clone()
 p.Parent = o
-p.Text = "x"
+p.Text = dec({120})
 p.MouseButton1Click:Connect(function()
     o.Visible = false
     c.Visible = true
 end)
 
-local q = Instance.new("TextBox")
+local q = Instance.new(dec({84,101,120,116,66,111,120}))
 q.Size = UDim2.new(0.8, 0, 0.2, 0)
 q.Position = UDim2.new(0.1, 0, 0.35, 0)
-q.PlaceholderText = "new name"
+q.PlaceholderText = dec({110,101,119,32,110,97,109,101})
 q.Parent = o
 
-local r = Instance.new("TextButton")
+local r = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 r.Size = UDim2.new(0.8, 0, 0.2, 0)
 r.Position = UDim2.new(0.1, 0, 0.65, 0)
-r.Text = "rename"
+r.Text = dec({114,101,110,97,109,101})
 r.Parent = o
 r.MouseButton1Click:Connect(function()
     local s1 = q.Text
     if s1 ~= "" then
         local t1 = a.Character
         if t1 then
-            local u1 = t1:FindFirstChildOfClass("Tool")
+            local u1 = t1:FindFirstChildOfClass(dec({84,111,111,108}))
             if u1 then
                 u1.Name = s1
-                print("tool renamed to: " .. s1)
+                print(dec({116,111,111,108,32,114,101,110,97,109,101,100,32,116,111,58,32}) .. s1)
             else
-                print("no tool equipped.")
+                print(dec({110,111,32,116,111,111,108,32,101,113,117,105,112,112,101,100,46}))
             end
         end
     end
 end)
 
-local v = Instance.new("Frame")
+local v = Instance.new(dec({70,114,97,109,101}))
 v.Size = UDim2.new(0, 400, 0, 500)
 v.Position = UDim2.new(0.5, -200, 0.3, 0)
 v.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -284,13 +291,13 @@ v.Parent = b
 
 local w = e:Clone()
 w.Parent = v
-w.Text = "x"
+w.Text = dec({120})
 w.MouseButton1Click:Connect(function()
     v.Visible = false
     c.Visible = true
 end)
 
-local x = Instance.new("ScrollingFrame")
+local x = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
 x.Size = UDim2.new(0.9, 0, 0.4, 0)
 x.Position = UDim2.new(0.05, 0, 0.15, 0)
 x.CanvasSize = UDim2.new(0, 0, 5, 0)
@@ -299,43 +306,43 @@ x.Parent = v
 x.ChildAdded:Connect(function()
     local z = 0
     for _, y in pairs(x:GetChildren()) do
-        if y:IsA("TextButton") then
+        if y:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
             z = z + 1
         end
     end
     x.CanvasSize = UDim2.new(0, 0, 0, z * 30)
 end)
 
-local aa = Instance.new("TextBox")
+local aa = Instance.new(dec({84,101,120,116,66,111,120}))
 aa.Size = UDim2.new(0.9, 0, 0.15, 0)
 aa.Position = UDim2.new(0.05, 0, 0.58, 0)
-aa.PlaceholderText = "enter new tool name"
+aa.PlaceholderText = dec({101,110,116,101,114,32,110,101,119,32,116,111,111,108,32,110,97,109,101})
 aa.Parent = v
 
-local ab = Instance.new("TextButton")
+local ab = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 ab.Size = UDim2.new(0.9, 0, 0.15, 0)
 ab.Position = UDim2.new(0.05, 0, 0.75, 0)
-ab.Text = "rename tool"
+ab.Text = dec({114,101,110,97,109,101,32,116,111,111,108})
 ab.Parent = v
 
 local ac = nil
 local function ad()
     for _, ae in pairs(x:GetChildren()) do
-        if ae:IsA("TextButton") then
+        if ae:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
             ae:Destroy()
         end
     end
-    local ah = a:FindFirstChild("Backpack")
+    local ah = a:FindFirstChild(dec({66,97,99,107,112,97,99,107}))
     if ah then
         for _, af in pairs(ah:GetChildren()) do
-            if af:IsA("Tool") then
-                local ag = Instance.new("TextButton")
+            if af:IsA(dec({84,111,111,108})) then
+                local ag = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
                 ag.Size = UDim2.new(1, 0, 0, 30)
                 ag.Text = string.lower(af.Name)
                 ag.Parent = x
                 ag.MouseButton1Click:Connect(function()
                     ac = af
-                    print("selected tool: " .. af.Name)
+                    print(dec({115,101,108,101,99,116,101,100,32,116,111,111,108,58,32}) .. af.Name)
                 end)
             end
         end
@@ -345,13 +352,13 @@ ab.MouseButton1Click:Connect(function()
     local af1 = aa.Text
     if af1 ~= "" and ac then
         ac.Name = af1
-        print("selected tool renamed to: " .. af1)
+        print(dec({115,101,108,101,99,116,101,100,32,116,111,111,108,32,114,101,110,97,109,101,100,32,116,111,58,32}) .. af1)
     else
-        print("no tool selected or name empty.")
+        print(dec({110,111,32,116,111,111,108,32,115,101,108,101,99,116,101,100,32,111,114,32,110,97,109,101,32,101,109,112,116,121,46}))
     end
 end)
 
-local ae = Instance.new("Frame")
+local ae = Instance.new(dec({70,114,97,109,101}))
 ae.Size = UDim2.new(0, 400, 0, 500)
 ae.Position = UDim2.new(0.5, -200, 0.3, 0)
 ae.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -362,13 +369,13 @@ ae.Parent = b
 
 local af = e:Clone()
 af.Parent = ae
-af.Text = "x"
+af.Text = dec({120})
 af.MouseButton1Click:Connect(function()
     ae.Visible = false
     c.Visible = true
 end)
 
-local ag = Instance.new("ScrollingFrame")
+local ag = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
 ag.Size = UDim2.new(0.9, 0, 0.4, 0)
 ag.Position = UDim2.new(0.05, 0, 0.15, 0)
 ag.CanvasSize = UDim2.new(0, 0, 5, 0)
@@ -377,43 +384,43 @@ ag.Parent = ae
 ag.ChildAdded:Connect(function()
     local ah1 = 0
     for _, ai in pairs(ag:GetChildren()) do
-        if ai:IsA("TextButton") then
+        if ai:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
             ah1 = ah1 + 1
         end
     end
     ag.CanvasSize = UDim2.new(0, 0, 0, ah1 * 30)
 end)
 
-local aj = Instance.new("TextBox")
+local aj = Instance.new(dec({84,101,120,116,66,111,120}))
 aj.Size = UDim2.new(0.9, 0, 0.15, 0)
 aj.Position = UDim2.new(0.05, 0, 0.58, 0)
-aj.PlaceholderText = "enter new text"
+aj.PlaceholderText = dec({101,110,116,101,114,32,110,101,119,32,116,101,120,116})
 aj.Parent = ae
 
-local ak = Instance.new("TextButton")
+local ak = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 ak.Size = UDim2.new(0.9, 0, 0.15, 0)
 ak.Position = UDim2.new(0.05, 0, 0.75, 0)
-ak.Text = "change text"
+ak.Text = dec({99,104,97,110,103,101,32,116,101,120,116})
 ak.Parent = ae
 
 local al = nil
 local function am()
     for _, an in pairs(ag:GetChildren()) do
-        if an:IsA("TextButton") then
+        if an:IsA(dec({84,101,120,116,66,117,116,116,111,110})) then
             an:Destroy()
         end
     end
-    local ao = a:FindFirstChildOfClass("PlayerGui")
+    local ao = a:FindFirstChildOfClass(dec({80,108,97,121,101,114,71,117,105}))
     if ao then
         for _, ap in pairs(ao:GetChildren()) do
-            if ap:IsA("ScreenGui") then
-                local aq = Instance.new("TextButton")
+            if ap:IsA(dec({83,99,114,101,101,110,71,117,105})) then
+                local aq = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
                 aq.Size = UDim2.new(1, 0, 0, 30)
                 aq.Text = string.lower(ap.Name)
                 aq.Parent = ag
                 aq.MouseButton1Click:Connect(function()
                     al = ap
-                    print("selected gui: " .. ap.Name)
+                    print(dec({115,101,108,101,99,116,101,100,32,103,117,105,58,32}) .. ap.Name)
                 end)
             end
         end
@@ -424,23 +431,23 @@ ak.MouseButton1Click:Connect(function()
     if ar ~= "" and al then
         local as = nil
         for _, at in ipairs(al:GetDescendants()) do
-            if at:IsA("TextLabel") then
+            if at:IsA(dec({84,101,120,116,76,97,98,101,108})) then
                 as = at
                 break
             end
         end
         if as then
             as.Text = string.lower(ar)
-            print("textlabel in " .. al.Name .. " changed to: " .. string.lower(ar))
+            print(dec({116,101,120,116,108,97,98,101,108,32,105,110,32}) .. al.Name .. dec({32,99,104,97,110,103,101,100,32,116,111,58,32}) .. string.lower(ar))
         else
-            print("no textlabel found in selected gui.")
+            print(dec({110,111,32,116,101,120,116,108,97,98,101,108,32,102,111,117,110,100,32,105,110,32,115,101,108,101,99,116,101,100,32,103,117,105,46}))
         end
     else
-        print("no gui selected or text empty.")
+        print(dec({110,111,32,103,117,105,32,115,101,108,101,99,116,101,100,32,111,114,32,116,101,120,116,32,101,109,112,116,121,46}))
     end
 end)
 
-local au = Instance.new("Frame")
+local au = Instance.new(dec({70,114,97,109,101}))
 au.Size = UDim2.new(0, 400, 0, 300)
 au.Position = UDim2.new(0.5, -200, 0.3, 0)
 au.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -451,51 +458,51 @@ au.Parent = b
 
 local av = e:Clone()
 av.Parent = au
-av.Text = "x"
+av.Text = dec({120})
 av.MouseButton1Click:Connect(function()
     au.Visible = false
     c.Visible = true
 end)
 
-local aw = Instance.new("TextBox")
+local aw = Instance.new(dec({84,101,120,116,66,111,120}))
 aw.Size = UDim2.new(0.8, 0, 0.2, 0)
 aw.Position = UDim2.new(0.1, 0, 0.35, 0)
-aw.PlaceholderText = "enter teleport vector3 (x,y,z)"
+aw.PlaceholderText = dec({101,110,116,101,114,32,116,101,108,101,112,111,114,116,32,118,101,99,116,111,114,51,32,40,120,44,121,44,122,41})
 aw.Parent = au
 
-local ax = Instance.new("TextButton")
+local ax = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 ax.Size = UDim2.new(0.8, 0, 0.2, 0)
 ax.Position = UDim2.new(0.1, 0, 0.65, 0)
-ax.Text = "teleport"
+ax.Text = dec({116,101,108,101,112,111,114,116})
 ax.Parent = au
 ax.MouseButton1Click:Connect(function()
     local ay = aw.Text
     if ay ~= "" then
-        local az = string.split(ay, ",")
+        local az = string.split(ay, dec({44}))
         if #az == 3 then
             local aA = tonumber(az[1])
             local aB = tonumber(az[2])
             local aC = tonumber(az[3])
             if aA and aB and aC then
                 local aD = a.Character
-                if aD and aD:FindFirstChild("humanoidrootpart") then
+                if aD and aD:FindFirstChild(dec({104,117,109,97,110,111,105,100,114,111,111,116,112,97,114,116})) then
                     aD:MoveTo(Vector3.new(aA, aB, aC))
-                    print("teleported to: " .. string.lower(ay))
+                    print(dec({116,101,108,101,112,111,114,116,101,100,32,116,111,58,32}) .. string.lower(ay))
                 else
-                    print("character or humanoidrootpart not found")
+                    print(dec({99,104,97,114,97,99,116,101,114,32,111,114,32,104,117,109,97,110,111,105,100,114,111,111,116,112,97,114,116,32,110,111,116,32,102,111,117,110,100}))
                 end
             else
-                print("invalid vector3 input.")
+                print(dec({105,110,118,97,108,105,100,32,118,101,99,116,111,114,51,32,105,110,112,117,116,46}))
             end
         else
-            print("enter a valid vector3 in the format x,y,z")
+            print(dec({101,110,116,101,114,32,97,32,118,97,108,105,100,32,118,101,99,116,111,114,51,32,105,110,32,116,104,101,32,102,111,114,109,97,116,32,120,44,121,44,122}))
         end
     else
-        print("please enter a teleport location.")
+        print(dec({112,108,101,97,115,101,32,101,110,116,101,114,32,97,32,116,101,108,101,112,111,114,116,32,108,111,99,97,116,105,111,110,46}))
     end
 end)
 
-local aF = Instance.new("Frame")
+local aF = Instance.new(dec({70,114,97,109,101}))
 aF.Size = UDim2.new(0, 400, 0, 350)
 aF.Position = UDim2.new(0.5, -200, 0.3, 0)
 aF.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -506,25 +513,25 @@ aF.Parent = b
 
 local aG = e:Clone()
 aG.Parent = aF
-aG.Text = "x"
+aG.Text = dec({120})
 aG.MouseButton1Click:Connect(function()
     aF.Visible = false
     c.Visible = true
 end)
 
-local aH = Instance.new("TextBox")
+local aH = Instance.new(dec({84,101,120,116,66,111,120}))
 aH.Size = UDim2.new(0.8, 0, 0.15, 0)
 aH.Position = UDim2.new(0.1, 0, 0.15, 0)
-aH.PlaceholderText = "new tool name"
+aH.PlaceholderText = dec({110,101,119,32,116,111,111,108,32,110,97,109,101})
 aH.Parent = aF
 
-local aI = Instance.new("TextButton")
+local aI = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 aI.Size = UDim2.new(0.8, 0, 0.15, 0)
 aI.Position = UDim2.new(0.1, 0, 0.35, 0)
-aI.Text = "advanced options"
+aI.Text = dec({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115})
 aI.Parent = aF
 
-local aJ = Instance.new("ScrollingFrame")
+local aJ = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
 aJ.Size = UDim2.new(0.9, 0, 0.5, 0)
 aJ.Position = UDim2.new(0.05, 0, 0.5, 0)
 aJ.BackgroundColor3 = Color3.new(0.25, 0.25, 0.25)
@@ -533,106 +540,106 @@ aJ.Parent = aF
 
 local aK = 0.15
 local aL = 0
-local aM = Instance.new("TextBox")
+local aM = Instance.new(dec({84,101,120,116,66,111,120}))
 aM.Size = UDim2.new(1, 0, aK, 0)
 aM.Position = UDim2.new(0, 0, aL, 0)
-aM.PlaceholderText = "tooltip (optional)"
+aM.PlaceholderText = dec({116,111,111,108,116,105,112,32,40,111,112,116,105,111,110,97,108,41})
 aM.Parent = aJ
 aL = aL + aK
 
-local aN = Instance.new("TextBox")
+local aN = Instance.new(dec({84,101,120,116,66,111,120}))
 aN.Size = UDim2.new(1, 0, aK, 0)
 aN.Position = UDim2.new(0, 0, aL, 0)
-aN.PlaceholderText = "requireshandle (true/false)"
+aN.PlaceholderText = dec({114,101,113,117,105,114,101,115,104,97,110,100,108,101,32,40,116,114,117,101,47,102,97,108,115,101,41})
 aN.Parent = aJ
 aL = aL + aK
 
-local aO = Instance.new("TextBox")
+local aO = Instance.new(dec({84,101,120,116,66,111,120}))
 aO.Size = UDim2.new(1, 0, aK, 0)
 aO.Position = UDim2.new(0, 0, aL, 0)
-aO.PlaceholderText = "canbedropped (true/false)"
+aO.PlaceholderText = dec({99,97,110,98,101,100,114,111,112,112,101,100,32,40,116,114,117,101,47,102,97,108,115,101,41})
 aO.Parent = aJ
 aL = aL + aK
 
-local aP = Instance.new("TextBox")
+local aP = Instance.new(dec({84,101,120,116,66,111,120}))
 aP.Size = UDim2.new(1, 0, aK, 0)
 aP.Position = UDim2.new(0, 0, aL, 0)
-aP.PlaceholderText = "grip (x,y,z)"
+aP.PlaceholderText = dec({103,114,105,112,32,40,120,44,121,44,122,41})
 aP.Parent = aJ
 aL = aL + aK
 
-local aQ = Instance.new("TextBox")
+local aQ = Instance.new(dec({84,101,120,116,66,111,120}))
 aQ.Size = UDim2.new(1, 0, aK, 0)
 aQ.Position = UDim2.new(0, 0, aL, 0)
-aQ.PlaceholderText = "grippos (x,y,z)"
+aQ.PlaceholderText = dec({103,114,105,112,112,111,115,32,40,120,44,121,44,122,41})
 aQ.Parent = aJ
 aL = aL + aK
 
-local aR = Instance.new("TextBox")
+local aR = Instance.new(dec({84,101,120,116,66,111,120}))
 aR.Size = UDim2.new(1, 0, aK, 0)
 aR.Position = UDim2.new(0, 0, aL, 0)
-aR.PlaceholderText = "handle size (x,y,z)"
+aR.PlaceholderText = dec({104,97,110,100,108,101,32,115,105,122,101,32,40,120,44,121,44,122,41})
 aR.Parent = aJ
 aL = aL + aK
 
-local aS = Instance.new("TextBox")
+local aS = Instance.new(dec({84,101,120,116,66,111,120}))
 aS.Size = UDim2.new(1, 0, aK, 0)
 aS.Position = UDim2.new(0, 0, aL, 0)
-aS.PlaceholderText = "handle color (r,g,b)"
+aS.PlaceholderText = dec({104,97,110,100,108,101,32,99,111,108,111,114,32,40,114,44,103,44,98,41})
 aS.Parent = aJ
 aL = aL + aK
 
-local aT = Instance.new("TextBox")
+local aT = Instance.new(dec({84,101,120,116,66,111,120}))
 aT.Size = UDim2.new(1, 0, aK, 0)
 aT.Position = UDim2.new(0, 0, aL, 0)
-aT.PlaceholderText = "handle material (e.g., plastic)"
+aT.PlaceholderText = dec({104,97,110,100,108,101,32,109,97,116,101,114,105,97,108,32,40,101,44,32,112,108,97,115,116,105,99,41})
 aT.Parent = aJ
 aL = aL + aK
 
-local aU = Instance.new("TextBox")
+local aU = Instance.new(dec({84,101,120,116,66,111,120}))
 aU.Size = UDim2.new(1, 0, aK, 0)
 aU.Position = UDim2.new(0, 0, aL, 0)
-aU.PlaceholderText = "handle transparency (0-1)"
+aU.PlaceholderText = dec({104,97,110,100,108,101,32,116,114,97,110,115,112,97,114,101,110,99,121,32,40,48,45,49,41})
 aU.Parent = aJ
 aL = aL + aK
 
-local aV = Instance.new("TextBox")
+local aV = Instance.new(dec({84,101,120,116,66,111,120}))
 aV.Size = UDim2.new(1, 0, aK, 0)
 aV.Position = UDim2.new(0, 0, aL, 0)
-aV.PlaceholderText = "handle reflectance (0-1)"
+aV.PlaceholderText = dec({104,97,110,100,108,101,32,114,101,102,108,101,99,116,97,110,99,101,32,40,48,45,49,41})
 aV.Parent = aJ
 aL = aL + aK
 
 aJ.CanvasSize = UDim2.new(0, 0, aL, 0)
 
-local aW = Instance.new("TextButton")
+local aW = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 aW.Size = UDim2.new(0.8, 0, 0.15, 0)
 aW.Position = UDim2.new(0.1, 0, 0.8, 0)
-aW.Text = "create tool"
+aW.Text = dec({99,114,101,97,116,101,32,116,111,111,108})
 aW.Parent = aF
 
 aI.MouseButton1Click:Connect(function()
     aJ.Visible = not aJ.Visible
     if aJ.Visible then
-        aI.Text = "advanced options (on)"
+        aI.Text = dec({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115,32,40,111,110,41})
     else
-        aI.Text = "advanced options"
+        aI.Text = dec({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115})
     end
 end)
 
 aW.MouseButton1Click:Connect(function()
     local aX = aH.Text
     if aX ~= "" then
-        local aY = a:FindFirstChild("Backpack")
+        local aY = a:FindFirstChild(dec({66,97,99,107,112,97,99,107}))
         if not aY then
-            aY = Instance.new("Folder")
-            aY.Name = "backpack"
+            aY = Instance.new(dec({70,111,108,100,101,114}))
+            aY.Name = dec({98,97,99,107,112,97,99,107})
             aY.Parent = a
         end
-        local aZ = Instance.new("Tool")
+        local aZ = Instance.new(dec({84,111,111,108}))
         aZ.Name = aX
-        local a0 = Instance.new("Part")
-        a0.Name = "handle"
+        local a0 = Instance.new(dec({80,97,114,116}))
+        a0.Name = dec({104,97,110,100,108,101})
         local a1 = Vector3.new(1, 1, 1)
         local a2 = Color3.new(1, 1, 1)
         local a3 = Enum.Material.Plastic
@@ -647,7 +654,7 @@ aW.MouseButton1Click:Connect(function()
             if aN.Text ~= "" then a7 = (string.lower(aN.Text) == "true") end
             if aO.Text ~= "" then a8 = (string.lower(aO.Text) == "true") end
             if aP.Text ~= "" then
-                local a11 = string.split(aP.Text, ",")
+                local a11 = string.split(aP.Text, dec({44}))
                 if #a11 == 3 then
                     local a12 = tonumber(a11[1])
                     local a13 = tonumber(a11[2])
@@ -658,7 +665,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aQ.Text ~= "" then
-                local a15 = string.split(aQ.Text, ",")
+                local a15 = string.split(aQ.Text, dec({44}))
                 if #a15 == 3 then
                     local a16 = tonumber(a15[1])
                     local a17 = tonumber(a15[2])
@@ -669,7 +676,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aR.Text ~= "" then
-                local a19 = string.split(aR.Text, ",")
+                local a19 = string.split(aR.Text, dec({44}))
                 if #a19 == 3 then
                     local a1A = tonumber(a19[1])
                     local a1B = tonumber(a19[2])
@@ -680,7 +687,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aS.Text ~= "" then
-                local a1D = string.split(aS.Text, ",")
+                local a1D = string.split(aS.Text, dec({44}))
                 if #a1D == 3 then
                     local a1E = tonumber(a1D[1])
                     local a1F = tonumber(a1D[2])
@@ -717,9 +724,9 @@ aW.MouseButton1Click:Connect(function()
         a0.Reflectance = a5
         a0.Parent = aZ
         aZ.Parent = aY
-        print("new tool created: " .. aX)
+        print(dec({110,101,119,32,116,111,111,108,32,99,114,101,97,116,101,100,58,32}) .. aX)
     else
-        print("please enter a valid tool name.")
+        print(dec({112,108,101,97,115,101,32,101,110,116,101,114,32,97,32,118,97,108,105,100,32,116,111,111,108,32,110,97,109,101,46}))
     end
 end)
 
@@ -771,3 +778,4 @@ newtoolmodebutton.mousebutton1click:connect(function()
     newtoolframe.visible = true
 end)
 ]]
+
