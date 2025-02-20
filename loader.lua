@@ -2,7 +2,7 @@
 --yeahyeah this v2
 --NOT FROM ULREAKILL
 --*ultrakill
--- # my roblox user is beanchz #
+-- # my roblox user is McBlocker real!!!! #
 --anyways take this early release v2
 --bongbong
 --mrman i dare you to not skid :imp-evil:
@@ -14,7 +14,14 @@ local function dec(arr)
     end
     return s
 end
-
+local function send(text)
+	local StarterGui = game:GetService("StarterGui")
+	StarterGui:SetCore("SendNotification",{
+		Title = "loaded (made by backup-acc4)", -- You can remove this, idc
+		Text = text,
+		Duration = 5
+	})
+end
 local a = game:GetService(dec({80,108,97,121,101,114,115}))[dec({76,111,99,97,108,80,108,97,121,101,114})]
 local b = Instance.new(dec({83,99,114,101,101,110,71,117,105}))
 b.Name = dec({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
