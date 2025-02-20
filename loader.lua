@@ -2,6 +2,7 @@
 --yeahyeah this v2
 --NOT FROM ULREAKILL
 --*ultrakill
+-- # my roblox user is beanchz #
 --anyways take this early release v2
 --bongbong
 --mrman i dare you to not skid :imp-evil:
