@@ -17,7 +17,7 @@ end
 local function send(text)
 	local StarterGui = game:GetService("StarterGui")
 	StarterGui:SetCore("SendNotification",{
-		Title = "loaded", -- You can remove this, idc
+		Title = "loaded", -- this part is skidded
 		Text = text,
 		Duration = 5
 	})
