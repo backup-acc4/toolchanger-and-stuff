@@ -11,7 +11,7 @@
 -- removed a bug
 -- fixing ui bug
 -- Helper function to decode an array of ASCII decimals into a string.
--- Helper function to decode an array of ASCII decimals into a string.
+
 local function dec(arr)
     local s = ""
     for i = 1, #arr do
