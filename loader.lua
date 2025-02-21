@@ -8,6 +8,7 @@
 --mrman i dare you to not skid :imp-evil:
 -- Helper function to decode an array of ASCII decimals into a string.
 -- vee three
+-- removed a bug
 local function dec(arr)
     local s = ""
     for i = 1, #arr do
@@ -827,5 +828,5 @@ end)
 -- send a notification when the script is loaded
 game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({115,99,114,105,112,116,32,108,111,97,100,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101,47,107,101,118}); Duration=3})
 
-]]
+
 
