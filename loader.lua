@@ -6,7 +6,7 @@
 --anyways take this early release v3
 --bongbong
 --mrman i dare you to not skid :imp-evil:
--- Helper function to decode an array of ASCII decimals into a string.
+
 -- vee three
 -- removed a bug
 -- fixing ui bug
