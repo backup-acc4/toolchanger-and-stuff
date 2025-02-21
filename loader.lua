@@ -9,6 +9,8 @@
 -- Helper function to decode an array of ASCII decimals into a string.
 -- vee three
 -- removed a bug
+-- fixing ui bug
+-- Helper function to decode an array of ASCII decimals into a string.
 local function dec(arr)
     local s = ""
     for i = 1, #arr do
@@ -17,10 +19,20 @@ local function dec(arr)
     return s
 end
 
+-- forward declarations for frames referenced in page1 buttons
+local o, v, ae, au, aF
+
 local a = game:GetService(dec({80,108,97,121,101,114,115}))[dec({76,111,99,97,108,80,108,97,121,101,114})]
 local b = Instance.new(dec({83,99,114,101,101,110,71,117,105}))
 b.Name = dec({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
 b.Parent = game[dec({67,111,114,101,71,117,105})]
+
+-- send a notification when the script is loaded
+game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {
+    Title = dec({115,99,114,105,112,116,32,108,111,97,100,101,100});
+    Text = dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101,47,107,101,118});
+    Duration = 3;
+})
 
 -- main ui frame (enlarged)
 local c = Instance.new(dec({70,114,97,109,101}))
@@ -55,16 +67,16 @@ g.Position = UDim2.new(1, -180, 0, 5)
 g.Text = dec({95})
 g.TextScaled = true
 g.Parent = c
-local f = false
+local isMinimized = false
 g.MouseButton1Click:Connect(function()
-    if not f then
+    if not isMinimized then
         for _, h in ipairs(c:GetChildren()) do
             if h ~= d and h ~= e and h ~= g and h.Name ~= dec({112,97,103,101,67,111,110,116,97,105,110,101,114}) and h.Name ~= dec({110,97,118,70,114,97,109,101}) then
                 h.Visible = false
             end
         end
         c.Size = UDim2.new(0, 500, 0, 40)
-        f = true
+        isMinimized = true
     else
         for _, h in ipairs(c:GetChildren()) do
             if h ~= d and h ~= e and h ~= g and h.Name ~= dec({112,97,103,101,67,111,110,116,97,105,110,101,114}) and h.Name ~= dec({110,97,118,70,114,97,109,101}) then
@@ -72,7 +84,7 @@ g.MouseButton1Click:Connect(function()
             end
         end
         c.Size = UDim2.new(0, 500, 0, 700)
-        f = false
+        isMinimized = false
     end
 end)
 
@@ -114,6 +126,7 @@ j.TextScaled = true
 j.Parent = page1
 
 local k = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
+k.Size = UDim2.new(0, 0.8, btnHeight, 0)  -- careful: use UDim2.new(0.8, 0, btnHeight, 0)
 k.Size = UDim2.new(0.8, 0, btnHeight, 0)
 k.Position = UDim2.new(0.1, 0, btnPositions[2], 0)
 k.Text = dec({115,101,108,101,99,116,32,117,114,32,116,111,111,108,32,97,110,100,32,119,101,32,100,111,32,105,116})
@@ -176,7 +189,7 @@ heButton.TextScaled = true
 heButton.Parent = page1
 
 --------------------------------------------------
--- page 2 content: new "fly" button
+-- page 2: new "fly" button
 --------------------------------------------------
 local flyButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 flyButton.Size = UDim2.new(0.8, 0, 0.2, 0)
@@ -201,7 +214,11 @@ flyButton.MouseButton1Click:Connect(function()
         local bv = nil
 
         function Fly()
-            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({102,108,121,32,97,99,116,105,118,97,116,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101}); Duration=1})
+            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {
+                Title = dec({102,108,121,32,97,99,116,105,118,97,116,101,100});
+                Text = dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101});
+                Duration = 1;
+            })
             bg = Instance.new(dec({66,111,100,121,71,121,114,111}))
             bg.Parent = torso
             bg.P = 9e4
@@ -225,14 +242,14 @@ flyButton.MouseButton1Click:Connect(function()
                     end
                 end
                 if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
-                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f + ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l + ctrl.r, (ctrl.f + ctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r, (ctrl.f+ctrl.b)*0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
                     lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
                 elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
-                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f + lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l + lastctrl.r, (lastctrl.f + lastctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r, (lastctrl.f+lastctrl.b)*0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
                 else
                     bv.velocity = Vector3.new(0, 0.1, 0)
                 end
-                bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f + ctrl.b) * 50 * speed / maxspeed), 0, 0)
+                bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed), 0, 0)
             until not flying
             ctrl = {f = 0, b = 0, l = 0, r = 0}
             lastctrl = {f = 0, b = 0, l = 0, r = 0}
@@ -242,36 +259,40 @@ flyButton.MouseButton1Click:Connect(function()
             bv:Destroy()
             bv = nil
             plr.Character[dec({72,117,109,97,110,111,105,100})].PlatformStand = false
-            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({102,108,121,32,100,101,97,99,116,105,118,97,116,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101}); Duration=1})
+            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {
+                Title = dec({102,108,121,32,100,101,97,99,116,105,118,97,116,101,100});
+                Text = dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101});
+                Duration = 1;
+            })
         end
 
         mouse.KeyDown:connect(function(key)
-            if key:lower() == dec({101}) then
-                if flying then
+            if key:lower() == "e" then
+                if flying then 
                     flying = false
                 else
                     flying = true
                     Fly()
                 end
-            elseif key:lower() == dec({119}) then
+            elseif key:lower() == "w" then
                 ctrl.f = 1
-            elseif key:lower() == dec({115}) then
+            elseif key:lower() == "s" then
                 ctrl.b = -1
-            elseif key:lower() == dec({97}) then
+            elseif key:lower() == "a" then
                 ctrl.l = -1
-            elseif key:lower() == dec({100}) then
+            elseif key:lower() == "d" then
                 ctrl.r = 1
             end
         end)
 
         mouse.KeyUp:connect(function(key)
-            if key:lower() == dec({119}) then
+            if key:lower() == "w" then
                 ctrl.f = 0
-            elseif key:lower() == dec({115}) then
+            elseif key:lower() == "s" then
                 ctrl.b = 0
-            elseif key:lower() == dec({97}) then
+            elseif key:lower() == "a" then
                 ctrl.l = 0
-            elseif key:lower() == dec({100}) then
+            elseif key:lower() == "d" then
                 ctrl.r = 0
             end
         end)
@@ -329,9 +350,42 @@ rightButton.MouseButton1Click:Connect(function()
 end)
 
 --------------------------------------------------
--- the rest of the ui frames remain unchanged below
+-- connect page1 buttons to open their frames
 --------------------------------------------------
-local o = Instance.new(dec({70,114,97,109,101}))
+j.MouseButton1Click:Connect(function()
+    c.Visible = false
+    o.Visible = true
+end)
+k.MouseButton1Click:Connect(function()
+    c.Visible = false
+    v.Visible = true
+    if ad then ad() end
+end)
+l.MouseButton1Click:Connect(function()
+    c.Visible = false
+    ae.Visible = true
+    if am then am() end
+end)
+m.MouseButton1Click:Connect(function()
+    c.Visible = false
+    au.Visible = true
+end)
+n.MouseButton1Click:Connect(function()
+    c.Visible = false
+    aF.Visible = true
+end)
+heButton.MouseButton1Click:Connect(function()
+    refreshHumanoidEditor()
+    humanoidEditorFrame.Visible = true
+    c.Visible = false
+end)
+
+--------------------------------------------------
+-- below: definitions for additional frames (o, v, ae, au, aF, humanoid editor, etc.)
+--------------------------------------------------
+
+-- frame "o": hold ur tool out
+o = Instance.new(dec({70,114,97,109,101}))
 o.Size = UDim2.new(0, 400, 0, 300)
 o.Position = UDim2.new(0.5, -200, 0.3, 0)
 o.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -375,7 +429,8 @@ r.MouseButton1Click:Connect(function()
     end
 end)
 
-local v = Instance.new(dec({70,114,97,109,101}))
+-- frame "v": select ur tool
+v = Instance.new(dec({70,114,97,109,101}))
 v.Size = UDim2.new(0, 400, 0, 500)
 v.Position = UDim2.new(0.5, -200, 0.3, 0)
 v.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -453,7 +508,8 @@ ab.MouseButton1Click:Connect(function()
     end
 end)
 
-local ae = Instance.new(dec({70,114,97,109,101}))
+-- frame "ae": gui changer (experimental)
+ae = Instance.new(dec({70,114,97,109,101}))
 ae.Size = UDim2.new(0, 400, 0, 500)
 ae.Position = UDim2.new(0.5, -200, 0.3, 0)
 ae.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -542,7 +598,8 @@ ak.MouseButton1Click:Connect(function()
     end
 end)
 
-local au = Instance.new(dec({70,114,97,109,101}))
+-- frame "au": teleport
+au = Instance.new(dec({70,114,97,109,101}))
 au.Size = UDim2.new(0, 400, 0, 300)
 au.Position = UDim2.new(0.5, -200, 0.3, 0)
 au.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -580,7 +637,7 @@ ax.MouseButton1Click:Connect(function()
             local aC = tonumber(az[3])
             if aA and aB and aC then
                 local aD = a.Character
-                if aD and aD:FindFirstChild(dec({72,117,109,97,110,111,105,100,82,111,111,116,80,97,114,116})) then
+                if aD and aD:FindFirstChild("HumanoidRootPart") then
                     aD:MoveTo(Vector3.new(aA, aB, aC))
                     print(dec({116,101,108,101,112,111,114,116,101,100,32,116,111,58,32}) .. string.lower(ay))
                 else
@@ -597,7 +654,8 @@ ax.MouseButton1Click:Connect(function()
     end
 end)
 
-local aF = Instance.new(dec({70,114,97,109,101}))
+-- frame "aF": make new tool
+aF = Instance.new(dec({70,114,97,109,101}))
 aF.Size = UDim2.new(0, 400, 0, 350)
 aF.Position = UDim2.new(0.5, -200, 0.3, 0)
 aF.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
@@ -725,7 +783,7 @@ end)
 aW.MouseButton1Click:Connect(function()
     local aX = aH.Text
     if aX ~= "" then
-        local aY = a:FindFirstChild(dec({66,97,99,107,112,97,99,107}))
+        local aY = a:FindFirstChild("Backpack")
         if not aY then
             aY = Instance.new(dec({70,111,108,100,101,114}))
             aY.Name = dec({98,97,99,107,112,97,99,107})
@@ -749,7 +807,7 @@ aW.MouseButton1Click:Connect(function()
             if aN.Text ~= "" then a7 = (string.lower(aN.Text) == "true") end
             if aO.Text ~= "" then a8 = (string.lower(aO.Text) == "true") end
             if aP.Text ~= "" then
-                local a11 = string.split(aP.Text, dec({44}))
+                local a11 = string.split(aP.Text, ",")
                 if #a11 == 3 then
                     local a12 = tonumber(a11[1])
                     local a13 = tonumber(a11[2])
@@ -760,7 +818,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aQ.Text ~= "" then
-                local a15 = string.split(aQ.Text, dec({44}))
+                local a15 = string.split(aQ.Text, ",")
                 if #a15 == 3 then
                     local a16 = tonumber(a15[1])
                     local a17 = tonumber(a15[2])
@@ -771,7 +829,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aR.Text ~= "" then
-                local a19 = string.split(aR.Text, dec({44}))
+                local a19 = string.split(aR.Text, ",")
                 if #a19 == 3 then
                     local a1A = tonumber(a19[1])
                     local a1B = tonumber(a19[2])
@@ -782,7 +840,7 @@ aW.MouseButton1Click:Connect(function()
                 end
             end
             if aS.Text ~= "" then
-                local a1D = string.split(aS.Text, dec({44}))
+                local a1D = string.split(aS.Text, ",")
                 if #a1D == 3 then
                     local a1E = tonumber(a1D[1])
                     local a1F = tonumber(a1D[2])
@@ -824,9 +882,6 @@ aW.MouseButton1Click:Connect(function()
         print(dec({112,108,101,97,115,101,32,101,110,116,101,114,32,97,32,118,97,108,105,100,32,116,111,111,108,32,110,97,109,101,46}))
     end
 end)
-
--- send a notification when the script is loaded
-game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({115,99,114,105,112,116,32,108,111,97,100,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101,47,107,101,118}); Duration=3})
 
 
 
