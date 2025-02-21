@@ -3,10 +3,11 @@
 --NOT FROM ULREAKILL
 --*ultrakill
 -- # my roblox user is McBlocker real!!!! #
---anyways take this early release v2
+--anyways take this early release v3
 --bongbong
 --mrman i dare you to not skid :imp-evil:
 -- Helper function to decode an array of ASCII decimals into a string.
+-- vee three
 local function dec(arr)
     local s = ""
     for i = 1, #arr do
@@ -14,39 +15,32 @@ local function dec(arr)
     end
     return s
 end
-local function send(text)
-	local StarterGui = game:GetService("StarterGui")
-	StarterGui:SetCore("SendNotification",{
-		Title = "loaded", -- this part is skidded
-		Text = text,
-		Duration = 5
-	})
-end
-send("TOOLCHANGER v2 thing made by backup-acc4/interactable object/kev")
+
 local a = game:GetService(dec({80,108,97,121,101,114,115}))[dec({76,111,99,97,108,80,108,97,121,101,114})]
 local b = Instance.new(dec({83,99,114,101,101,110,71,117,105}))
 b.Name = dec({117,105,32,116,104,105,110,103,121,32,118,49,46,53})
 b.Parent = game[dec({67,111,114,101,71,117,105})]
 
--- main ui frame enlarged to 600px tall
+-- main ui frame (enlarged)
 local c = Instance.new(dec({70,114,97,109,101}))
-c.Size = UDim2.new(0, 400, 0, 600)
-c.Position = UDim2.new(0.5, -200, 0.3, 0)
+c.Size = UDim2.new(0, 500, 0, 700)
+c.Position = UDim2.new(0.5, -250, 0.15, 0)
 c.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
 c.Active = true
 c.Draggable = true
 c.Parent = b
 
 local d = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
-d.Size = UDim2.new(1, 0, 0.15, 0)
+d.Size = UDim2.new(1, 0, 0, 50)
 d.Position = UDim2.new(0, 0, 0, 0)
 d.Text = dec({117,105,32,116,104,105,110,103,121,32,118,50})
 d.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+d.TextScaled = true
 d.Parent = c
 
 local e = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-e.Size = UDim2.new(0.2, 0, 0.1, 0)
-e.Position = UDim2.new(0.8, 0, 0, 0)
+e.Size = UDim2.new(0, 80, 0, 40)
+e.Position = UDim2.new(1, -90, 0, 5)
 e.Text = dec({120})
 e.TextScaled = true
 e.Parent = c
@@ -54,79 +48,104 @@ e.MouseButton1Click:Connect(function()
     b:Destroy()
 end)
 
-local f = false
 local g = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-g.Size = UDim2.new(0.2, 0, 0.1, 0)
-g.Position = UDim2.new(0.6, 0, 0, 0)
+g.Size = UDim2.new(0, 80, 0, 40)
+g.Position = UDim2.new(1, -180, 0, 5)
 g.Text = dec({95})
 g.TextScaled = true
 g.Parent = c
+local f = false
 g.MouseButton1Click:Connect(function()
     if not f then
         for _, h in ipairs(c:GetChildren()) do
-            if h ~= d and h ~= e and h ~= g then
+            if h ~= d and h ~= e and h ~= g and h.Name ~= dec({112,97,103,101,67,111,110,116,97,105,110,101,114}) and h.Name ~= dec({110,97,118,70,114,97,109,101}) then
                 h.Visible = false
             end
         end
-        c.Size = UDim2.new(0, 400, 0, 40)
+        c.Size = UDim2.new(0, 500, 0, 40)
         f = true
     else
         for _, h in ipairs(c:GetChildren()) do
-            if h ~= d and h ~= e and h ~= g then
+            if h ~= d and h ~= e and h ~= g and h.Name ~= dec({112,97,103,101,67,111,110,116,97,105,110,101,114}) and h.Name ~= dec({110,97,118,70,114,97,109,101}) then
                 h.Visible = true
             end
         end
-        c.Size = UDim2.new(0, 400, 0, 600)
+        c.Size = UDim2.new(0, 500, 0, 700)
         f = false
     end
 end)
 
-local i = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
-i.Size = UDim2.new(0, 320, 0, 60)
-i.Position = UDim2.new(0.1, 0, 0.15, 0)
-i.Text = dec({115,101,108,101,99,116,32,97,108,103,111,114,105,116,104,109,58})
-i.BackgroundTransparency = 1
-i.Parent = c
+-- create a container for pages (leaving room for title at top and navigation at bottom)
+local pageContainer = Instance.new(dec({70,114,97,109,101}))
+pageContainer.Name = dec({112,97,103,101,67,111,110,116,97,105,110,101,114})
+pageContainer.Size = UDim2.new(1, 0, 0.75, 0)  -- about 75% of c's height
+pageContainer.Position = UDim2.new(0, 0, 0.15, 0)
+pageContainer.BackgroundTransparency = 1
+pageContainer.Parent = c
 
--- for 7 buttons, evenly space them from scale 0.25 to 1.0
+-- create page 1 (original content)
+local page1 = Instance.new(dec({70,114,97,109,101}))
+page1.Name = dec({112,97,103,101,49})
+page1.Size = UDim2.new(1, 0, 1, 0)
+page1.Position = UDim2.new(0, 0, 0, 0)
+page1.BackgroundTransparency = 1
+page1.Parent = pageContainer
+
+-- create page 2 (new content)
+local page2 = Instance.new(dec({70,114,97,109,101}))
+page2.Name = dec({112,97,103,101,50})
+page2.Size = UDim2.new(1, 0, 1, 0)
+page2.Position = UDim2.new(0, 0, 0, 0)
+page2.BackgroundTransparency = 1
+page2.Visible = false
+page2.Parent = pageContainer
+
+-- for positioning the buttons on the pages (using same relative positions as before)
 local btnPositions = {0.25, 0.357, 0.464, 0.571, 0.679, 0.786, 0.893}
 local btnHeight = 0.107
 
+-- page 1 buttons (original content)
 local j = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 j.Size = UDim2.new(0.8, 0, btnHeight, 0)
 j.Position = UDim2.new(0.1, 0, btnPositions[1], 0)
 j.Text = dec({104,111,108,100,32,117,114,32,116,111,111,108,32,111,117,116,32,97,110,100,32,119,101,32,100,111,32,105,116})
-j.Parent = c
+j.TextScaled = true
+j.Parent = page1
 
 local k = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 k.Size = UDim2.new(0.8, 0, btnHeight, 0)
 k.Position = UDim2.new(0.1, 0, btnPositions[2], 0)
 k.Text = dec({115,101,108,101,99,116,32,117,114,32,116,111,111,108,32,97,110,100,32,119,101,32,100,111,32,105,116})
-k.Parent = c
+k.TextScaled = true
+k.Parent = page1
 
 local l = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 l.Size = UDim2.new(0.8, 0, btnHeight, 0)
 l.Position = UDim2.new(0.1, 0, btnPositions[3], 0)
 l.Text = dec({103,117,105,32,99,104,97,110,103,101,114,32,40,101,120,112,101,114,105,109,101,110,116,97,108,41})
-l.Parent = c
+l.TextScaled = true
+l.Parent = page1
 
 local m = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 m.Size = UDim2.new(0.8, 0, btnHeight, 0)
 m.Position = UDim2.new(0.1, 0, btnPositions[4], 0)
 m.Text = dec({116,101,108,101,112,111,114,116})
-m.Parent = c
+m.TextScaled = true
+m.Parent = page1
 
 local n = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 n.Size = UDim2.new(0.8, 0, btnHeight, 0)
 n.Position = UDim2.new(0.1, 0, btnPositions[5], 0)
 n.Text = dec({109,97,107,101,32,110,101,119,32,116,111,111,108})
-n.Parent = c
+n.TextScaled = true
+n.Parent = page1
 
 local f3x = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 f3x.Size = UDim2.new(0.8, 0, btnHeight, 0)
 f3x.Position = UDim2.new(0.1, 0, btnPositions[6], 0)
 f3x.Text = dec({102,51,120})
-f3x.Parent = c
+f3x.TextScaled = true
+f3x.Parent = page1
 f3x.MouseButton1Click:Connect(function()
     local backpack = a:WaitForChild(dec({66,97,99,107,112,97,99,107}))
     
@@ -148,103 +167,169 @@ f3x.MouseButton1Click:Connect(function()
     print(dec({104,111,112,112,101,114,98,105,110,115,32,97,100,100,101,100,58,32,104,97,109,109,101,114,44,32,99,108,111,110,101,44,32,103,114,97,98}))
 end)
 
--- new "humanoid editor" button replaces the previous walkspeed button
 local heButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
 heButton.Size = UDim2.new(0.8, 0, btnHeight, 0)
 heButton.Position = UDim2.new(0.1, 0, btnPositions[7], 0)
 heButton.Text = dec({104,117,109,97,110,111,105,100,32,101,100,105,116,111,114})
-heButton.Parent = c
+heButton.TextScaled = true
+heButton.Parent = page1
 
 --------------------------------------------------
--- humanoid editor frame
+-- page 2 content: new "fly" button
 --------------------------------------------------
-local humanoidEditorFrame = Instance.new(dec({70,114,97,109,101}))
-humanoidEditorFrame.Size = UDim2.new(0, 400, 0, 400)
-humanoidEditorFrame.Position = UDim2.new(0.5, -200, 0.3, 0)
-humanoidEditorFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-humanoidEditorFrame.Active = true
-humanoidEditorFrame.Draggable = true
-humanoidEditorFrame.Visible = false
-humanoidEditorFrame.Parent = b
+local flyButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
+flyButton.Size = UDim2.new(0.8, 0, 0.2, 0)
+flyButton.Position = UDim2.new(0.1, 0, 0.4, 0)
+flyButton.Text = dec({102,108,121})
+flyButton.TextScaled = true
+flyButton.Parent = page2
+flyButton.MouseButton1Click:Connect(function()
+    spawn(function()
+        repeat wait() until a and a.Character and a.Character:FindFirstChild(dec({84,111,114,115,111})) and a.Character:FindFirstChild(dec({72,117,109,97,110,111,105,100}))
+        local mouse = a:GetMouse()
+        repeat wait() until mouse
 
-local heClose = e:Clone()
-heClose.Parent = humanoidEditorFrame
-heClose.Text = dec({120})
-heClose.MouseButton1Click:Connect(function()
-    humanoidEditorFrame.Visible = false
-    c.Visible = true
-end)
+        local plr = a
+        local torso = plr.Character[dec({84,111,114,115,111})]
+        local flying = true
+        local ctrl = {f = 0, b = 0, l = 0, r = 0}
+        local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        local maxspeed = 50
+        local speed = 0
+        local bg = nil
+        local bv = nil
 
--- list of humanoid properties to edit (property names must remain unchanged for the api)
-local humanoidProperties = {dec({87,97,108,107,83,112,101,101,100}), dec({74,117,109,112,80,111,119,101,114}), dec({72,105,112,72,101,105,103,104,116}), dec({72,101,97,108,116,104}), dec({77,97,120,72,101,97,108,116,104})}
+        function Fly()
+            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({102,108,121,32,97,99,116,105,118,97,116,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101}); Duration=1})
+            bg = Instance.new(dec({66,111,100,121,71,121,114,111}))
+            bg.Parent = torso
+            bg.P = 9e4
+            bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+            bg.cframe = torso.CFrame
+            bv = Instance.new(dec({66,111,100,121,86,101,108,111,99,105,116,121}))
+            bv.Parent = torso
+            bv.velocity = Vector3.new(0, 0.1, 0)
+            bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+            repeat wait()
+                plr.Character[dec({72,117,109,97,110,111,105,100})].PlatformStand = true
+                if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+                    speed = speed + 0.5 + (speed/maxspeed)
+                    if speed > maxspeed then
+                        speed = maxspeed
+                    end
+                elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+                    speed = speed - 1
+                    if speed < 0 then
+                        speed = 0
+                    end
+                end
+                if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f + ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l + ctrl.r, (ctrl.f + ctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+                    lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+                elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+                    bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f + lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l + lastctrl.r, (lastctrl.f + lastctrl.b) * 0.2, 0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p)) * speed
+                else
+                    bv.velocity = Vector3.new(0, 0.1, 0)
+                end
+                bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f + ctrl.b) * 50 * speed / maxspeed), 0, 0)
+            until not flying
+            ctrl = {f = 0, b = 0, l = 0, r = 0}
+            lastctrl = {f = 0, b = 0, l = 0, r = 0}
+            speed = 0
+            bg:Destroy()
+            bg = nil
+            bv:Destroy()
+            bv = nil
+            plr.Character[dec({72,117,109,97,110,111,105,100})].PlatformStand = false
+            game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({102,108,121,32,100,101,97,99,116,105,118,97,116,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101}); Duration=1})
+        end
 
-local heScrollingFrame = Instance.new(dec({83,99,114,111,108,108,105,110,103,70,114,97,109,101}))
-heScrollingFrame.Size = UDim2.new(0.9, 0, 0.7, 0)
-heScrollingFrame.Position = UDim2.new(0.05, 0, 0.15, 0)
-heScrollingFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
-heScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #humanoidProperties * 35)
-heScrollingFrame.Parent = humanoidEditorFrame
-
-local heElements = {}
-for i, prop in ipairs(humanoidProperties) do
-    local label = Instance.new(dec({84,101,120,116,76,97,98,101,108}))
-    label.Size = UDim2.new(0.4, 0, 0, 30)
-    label.Position = UDim2.new(0, 0, 0, (i - 1) * 35)
-    label.Text = string.lower(prop)
-    label.BackgroundTransparency = 1
-    label.Parent = heScrollingFrame
-
-    local textbox = Instance.new(dec({84,101,120,116,66,111,120}))
-    textbox.Size = UDim2.new(0.5, 0, 0, 30)
-    textbox.Position = UDim2.new(0.45, 0, 0, (i - 1) * 35)
-    textbox.PlaceholderText = dec({118,97,108,117,101})
-    textbox.Parent = heScrollingFrame
-
-    heElements[prop] = textbox
-end
-
-local heApplyButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-heApplyButton.Size = UDim2.new(0.8, 0, 0.15, 0)
-heApplyButton.Position = UDim2.new(0.1, 0, 0.88, 0)
-heApplyButton.Text = dec({97,112,112,108,121,32,99,104,97,110,103,101,115})
-heApplyButton.Parent = humanoidEditorFrame
-heApplyButton.MouseButton1Click:Connect(function()
-    local character = a.Character or a.CharacterAdded:Wait()
-    local humanoid = character:FindFirstChildOfClass(dec({72,117,109,97,110,111,105,100}))
-    if humanoid then
-        for _, prop in ipairs(humanoidProperties) do
-            local newVal = tonumber(heElements[prop].Text)
-            if newVal then
-                humanoid[prop] = newVal
-                print(string.lower(prop) .. dec({32,115,101,116,32,116,111,58,32}) .. newVal)
+        mouse.KeyDown:connect(function(key)
+            if key:lower() == dec({101}) then
+                if flying then
+                    flying = false
+                else
+                    flying = true
+                    Fly()
+                end
+            elseif key:lower() == dec({119}) then
+                ctrl.f = 1
+            elseif key:lower() == dec({115}) then
+                ctrl.b = -1
+            elseif key:lower() == dec({97}) then
+                ctrl.l = -1
+            elseif key:lower() == dec({100}) then
+                ctrl.r = 1
             end
-        end
-    else
-        print(dec({104,117,109,97,110,111,105,100,32,110,111,116,32,102,111,117,110,100}))
-    end
+        end)
+
+        mouse.KeyUp:connect(function(key)
+            if key:lower() == dec({119}) then
+                ctrl.f = 0
+            elseif key:lower() == dec({115}) then
+                ctrl.b = 0
+            elseif key:lower() == dec({97}) then
+                ctrl.l = 0
+            elseif key:lower() == dec({100}) then
+                ctrl.r = 0
+            end
+        end)
+
+        Fly()
+    end)
 end)
 
-local function refreshHumanoidEditor()
-    local character = a.Character or a.CharacterAdded:Wait()
-    local humanoid = character:FindFirstChildOfClass(dec({72,117,109,97,110,111,105,100}))
-    if humanoid then
-        for _, prop in ipairs(humanoidProperties) do
-            local value = humanoid[prop]
-            heElements[prop].Text = tostring(value)
-        end
+--------------------------------------------------
+-- navigation buttons for pages
+--------------------------------------------------
+local navFrame = Instance.new(dec({70,114,97,109,101}))
+navFrame.Name = dec({110,97,118,70,114,97,109,101})
+navFrame.Size = UDim2.new(1, 0, 0.1, 0)
+navFrame.Position = UDim2.new(0, 0, 0.9, 0)
+navFrame.BackgroundTransparency = 1
+navFrame.Parent = c
+
+local currentPage = 1
+local leftButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
+leftButton.Size = UDim2.new(0, 50, 0, 30)
+leftButton.Position = UDim2.new(0, 10, 0.35, 0)
+leftButton.Text = dec({60})
+leftButton.TextScaled = true
+leftButton.Parent = navFrame
+
+local rightButton = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
+rightButton.Size = UDim2.new(0, 50, 0, 30)
+rightButton.Position = UDim2.new(1, -60, 0.35, 0)
+rightButton.Text = dec({62})
+rightButton.TextScaled = true
+rightButton.Parent = navFrame
+
+local function updatePages()
+    if currentPage == 1 then
+        page1.Visible = true
+        page2.Visible = false
+    else
+        page1.Visible = false
+        page2.Visible = true
     end
 end
 
-heButton.MouseButton1Click:Connect(function()
-    refreshHumanoidEditor()
-    humanoidEditorFrame.Visible = true
-    c.Visible = false
+leftButton.MouseButton1Click:Connect(function()
+    if currentPage > 1 then
+        currentPage = currentPage - 1
+        updatePages()
+    end
+end)
+rightButton.MouseButton1Click:Connect(function()
+    if currentPage < 2 then
+        currentPage = currentPage + 1
+        updatePages()
+    end
 end)
 
 --------------------------------------------------
 -- the rest of the ui frames remain unchanged below
 --------------------------------------------------
-
 local o = Instance.new(dec({70,114,97,109,101}))
 o.Size = UDim2.new(0, 400, 0, 300)
 o.Position = UDim2.new(0.5, -200, 0.3, 0)
@@ -494,11 +579,11 @@ ax.MouseButton1Click:Connect(function()
             local aC = tonumber(az[3])
             if aA and aB and aC then
                 local aD = a.Character
-                if aD and aD:FindFirstChild(dec({104,117,109,97,110,111,105,100,114,111,111,116,112,97,114,116})) then
+                if aD and aD:FindFirstChild(dec({72,117,109,97,110,111,105,100,82,111,111,116,80,97,114,116})) then
                     aD:MoveTo(Vector3.new(aA, aB, aC))
                     print(dec({116,101,108,101,112,111,114,116,101,100,32,116,111,58,32}) .. string.lower(ay))
                 else
-                    print(dec({99,104,97,114,97,99,116,101,114,32,111,114,32,104,117,109,97,110,111,105,100,114,111,111,116,112,97,114,116,32,110,111,116,32,102,111,117,110,100}))
+                    print(dec({99,104,97,114,97,99,116,101,114,32,111,114,32,104,117,109,97,110,111,105,100,82,111,111,116,80,97,114,116,32,110,111,116,32,102,111,117,110,100}))
                 end
             else
                 print(dec({105,110,118,97,108,105,100,32,118,101,99,116,111,114,51,32,105,110,112,117,116,46}))
@@ -529,13 +614,13 @@ aG.MouseButton1Click:Connect(function()
 end)
 
 local aH = Instance.new(dec({84,101,120,116,66,111,120}))
-aH.Size = UDim2.new(0.8, 0, 0.15, 0)
+aH.Size = UDim2.new(0, 400, 0, 50)
 aH.Position = UDim2.new(0.1, 0, 0.15, 0)
 aH.PlaceholderText = dec({110,101,119,32,116,111,111,108,32,110,97,109,101})
 aH.Parent = aF
 
 local aI = Instance.new(dec({84,101,120,116,66,117,116,116,111,110}))
-aI.Size = UDim2.new(0.8, 0, 0.15, 0)
+aI.Size = UDim2.new(0, 400, 0, 50)
 aI.Position = UDim2.new(0.1, 0, 0.35, 0)
 aI.Text = dec({97,100,118,97,110,99,101,100,32,111,112,116,105,111,110,115})
 aI.Parent = aF
@@ -739,52 +824,8 @@ aW.MouseButton1Click:Connect(function()
     end
 end)
 
--- connect main ui buttons to their corresponding frames
-j.MouseButton1Click:Connect(function()
-    c.Visible = false
-    o.Visible = true
-end)
-k.MouseButton1Click:Connect(function()
-    c.Visible = false
-    v.Visible = true
-    ad()
-end)
-l.MouseButton1Click:Connect(function()
-    c.Visible = false
-    ae.Visible = true
-    am()
-end)
-m.MouseButton1Click:Connect(function()
-    c.Visible = false
-    au.Visible = true
-end)
-n.MouseButton1Click:Connect(function()
-    c.Visible = false
-    aF.Visible = true
-end)
+-- send a notification when the script is loaded
+game.StarterGui:SetCore(dec({83,101,110,100,78,111,116,105,102,105,99,97,116,105,111,110}), {Title=dec({115,99,114,105,112,116,32,108,111,97,100,101,100}); Text=dec({116,111,111,108,99,104,97,110,103,101,114,32,118,51,32,98,121,32,105,110,116,101,114,97,99,116,97,98,108,101,47,107,101,118}); Duration=3})
 
---[[
-legacy code removed for clarity and to avoid errors in a lua executor:
-mousebutton1click:connect(function()
-    mainframe.visible = false
-    selectframe.visible = true
-    updatetoollist()
-end)
-
-guimodebutton.mousebutton1click:connect(function()
-    mainframe.visible = false
-    guilabelframe.visible = true
-    updateguilist()
-end)
-
-teleportmodebutton.mousebutton1click:connect(function()
-    mainframe.visible = false
-    teleportframe.visible = true
-end)
-
-newtoolmodebutton.mousebutton1click:connect(function()
-    mainframe.visible = false
-    newtoolframe.visible = true
-end)
 ]]
 
