@@ -10,7 +10,7 @@
 -- vee three
 -- removed a bug
 -- fixing ui bug
--- Helper function to decode an array of ASCII decimals into a string.
+-- helper function to decode an array of ASCII decimals into a string.
 
 local function dec(arr)
     local s = ""
