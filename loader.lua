@@ -419,7 +419,8 @@ delay(5, function()
 			sideUI.Size = UDim2.new(0,400,0,400)
 			sideUI.Position = UDim2.new(1,10,0.5,-200)
 			sideUI.BackgroundColor3 = Color3.fromRGB(30,30,30)
-			sideUI.Parent = mainFrame   -- Changed from screenGui to mainFrame
+			-- Changed from screenGui to mainFrame
+			sideUI.Parent = mainFrame
 			makeDraggable(sideUI)
 
 			local sideClose = Instance.new("TextButton")
@@ -488,7 +489,8 @@ delay(5, function()
 					panel.Size = UDim2.new(0,350,0,100)
 					panel.Position = UDim2.new(1,10,0.5,-50)
 					panel.BackgroundColor3 = Color3.fromRGB(40,40,40)
-					panel.Parent = screenGui
+					-- FIX: Set parent to mainFrame so it's positioned relative to the UI
+					panel.Parent = mainFrame
 					makeDraggable(panel)
 					
 					local panelClose = Instance.new("TextButton")
@@ -508,7 +510,7 @@ delay(5, function()
 					textBox.Size = UDim2.new(0,300,0,40)
 					textBox.Position = UDim2.new(0,25,0,10)
 					textBox.BackgroundColor3 = Color3.fromRGB(60,60,60)
-					textBox.TextColor3 = Color3.fromRGB(255,255,255)
+					textBox.TextColor3 = Color3.new(1,1,1)
 					textBox.Font = Enum.Font.SourceSans
 					textBox.TextScaled = true
 					textBox.PlaceholderText = "enter new text"
@@ -549,7 +551,8 @@ delay(5, function()
 			tpUI.Size = UDim2.new(0,400,0,400)
 			tpUI.Position = UDim2.new(1,10,0.5,-200)
 			tpUI.BackgroundColor3 = Color3.fromRGB(30,30,30)
-			tpUI.Parent = mainFrame   -- Changed from screenGui to mainFrame
+			-- Changed from screenGui to mainFrame
+			tpUI.Parent = mainFrame
 			makeDraggable(tpUI)
 			
 			local tpClose = Instance.new("TextButton")
