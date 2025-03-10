@@ -17,7 +17,7 @@ Features:
     - Player Teleport: Opens a 400×400 UI listing models (from Workspace:GetChildren()) with a Humanoid.
       Each entry shows the model’s name and a “tp to” button that teleports the player’s character.
     - f3x: Runs a script from an external URL.
-    - invis: Runs a script that teleports your character’s parts far away and sets up a custom camera.
+    - invis: Runs a script that creates a fake (invisible) character and toggles invisibility when you press E.
 • All pop-ups are draggable.
 • The close button on the main UI destroys the entire script; minimize shrinks the main UI.
 • The change result message waits 2 seconds before fading out over 2 seconds.
@@ -210,168 +210,151 @@ local function updateMainUIState()
 end
 
 ---------------------------
--- Invis Script Function
+-- Invis Script Function (updated)
 ---------------------------
 local function runInvisScript()
 	-- Invis script code:
-	local Players = game:GetService("Players")
-	local RunService = game:GetService("RunService")
-	local UserInputService = game:GetService("UserInputService")
-	local player = Players.LocalPlayer
-	local character = player.Character or player.CharacterAdded:Wait()
-
-	local mouse = player:GetMouse()
-
-	-- Base position and movement variables.
-	local basePos = Vector3.new(0, 0, 0)  -- Start at (0,0,0)
-	local moveDirection = Vector3.new(0, 0, 0)
-	local moveSpeed = 60  -- Movement speed set to 60.
-
-	-- Input flags.
-	local isSpaceDown = false
-	local isNDown = false
-	local isRightMouseDown = false
-	local isMouseDown = false  -- Flag for left mouse button
-
-	-- Set up the camera.
-	local camera = workspace.CurrentCamera
-	camera.CameraType = Enum.CameraType.Scriptable
-	local cameraAngleX = math.rad(45)  -- Initial pitch.
-	local cameraAngleY = math.rad(0)   -- Initial yaw.
-	local cameraDistance = 20          -- Initial zoom distance.
-	local cameraSensitivity = 0.3      -- Adjust drag sensitivity as needed.
-
-	-- Function to continuously anchor and teleport all body parts.
-	local function teleportCharacter()
-		while true do
-			for _, part in ipairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Anchored = true  -- Anchor the part
-					part.Position = Vector3.new(0, 500, 1233333333333333)
+	local ScriptStarted = false
+	local Keybind = "E" --Set to whatever you want, has to be the name of a KeyCode Enum.
+	local Transparency = true --Will make you slightly transparent when you are invisible.
+	local NoClip = false --Will make your fake character no clip.
+	
+	local Player = game:GetService("Players").LocalPlayer
+	local RealCharacter = Player.Character or Player.CharacterAdded:Wait()
+	
+	local IsInvisible = false
+	
+	RealCharacter.Archivable = true
+	local FakeCharacter = RealCharacter:Clone()
+	local Part = Instance.new("Part", workspace)
+	Part.Anchored = true
+	Part.Size = Vector3.new(200, 1, 200)
+	Part.CFrame = CFrame.new(0, -500, 0) --Far away from the map.
+	Part.CanCollide = true
+	FakeCharacter.Parent = workspace
+	FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+	
+	for i, v in pairs(RealCharacter:GetChildren()) do
+		if v:IsA("LocalScript") then
+			local clone = v:Clone()
+			clone.Disabled = true
+			clone.Parent = FakeCharacter
+		end
+	end
+	if Transparency then
+		for i, v in pairs(FakeCharacter:GetDescendants()) do
+			if v:IsA("BasePart") then
+				v.Transparency = 0.7
+			end
+		end
+	end
+	local CanInvis = true
+	local function RealCharacterDied()
+		CanInvis = false
+		RealCharacter:Destroy()
+		RealCharacter = Player.Character
+		CanInvis = true
+		IsInvisible = false
+		FakeCharacter:Destroy()
+		workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
+	
+		RealCharacter.Archivable = true
+		FakeCharacter = RealCharacter:Clone()
+		Part:Destroy()
+		Part = Instance.new("Part", workspace)
+		Part.Anchored = true
+		Part.Size = Vector3.new(200, 1, 200)
+		Part.CFrame = CFrame.new(9999, 9999, 9999) --Far away from the map.
+		Part.CanCollide = true
+		FakeCharacter.Parent = workspace
+		FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+	
+		for i, v in pairs(RealCharacter:GetChildren()) do
+			if v:IsA("LocalScript") then
+				local clone = v:Clone()
+				clone.Disabled = true
+				clone.Parent = FakeCharacter
+			end
+		end
+		if Transparency then
+			for i, v in pairs(FakeCharacter:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Transparency = 0.7
 				end
 			end
-			task.wait()
 		end
-	end
-
-	-- UI Setup
-	local function createUI()
-		local screenGui = Instance.new("ScreenGui")
-		screenGui.Parent = player:FindFirstChildOfClass("PlayerGui")
-
-		local positionLabel = Instance.new("TextLabel")
-		positionLabel.Size = UDim2.new(1, 0, 0, 30)
-		positionLabel.Position = UDim2.new(0, 0, 1, -30)
-		positionLabel.BackgroundTransparency = 0.5
-		positionLabel.BackgroundColor3 = Color3.new(0, 0, 0)
-		positionLabel.TextColor3 = Color3.new(1, 1, 1)
-		positionLabel.TextScaled = true
-		positionLabel.Parent = screenGui
-
-		return positionLabel
-	end
-
-	local positionLabel = createUI()
-
-	-- Left mouse button for setting movement target.
-	mouse.Button1Down:Connect(function()
-		isMouseDown = true
-	end)
-	mouse.Button1Up:Connect(function()
-		isMouseDown = false
-	end)
-
-	-- Right mouse button for dragging camera and WASD for movement.
-	UserInputService.InputBegan:Connect(function(input, gameProcessed)
-		if input.UserInputType == Enum.UserInputType.MouseButton2 then
-			isRightMouseDown = true
-		end
-		if not gameProcessed then
-			if input.KeyCode == Enum.KeyCode.W then
-				moveDirection = moveDirection + Vector3.new(0, 0, -1)
-			elseif input.KeyCode == Enum.KeyCode.S then
-				moveDirection = moveDirection + Vector3.new(0, 0, 1)
-			elseif input.KeyCode == Enum.KeyCode.A then
-				moveDirection = moveDirection + Vector3.new(-1, 0, 0)
-			elseif input.KeyCode == Enum.KeyCode.D then
-				moveDirection = moveDirection + Vector3.new(1, 0, 0)
-			elseif input.KeyCode == Enum.KeyCode.Space then
-				isSpaceDown = true
-			elseif input.KeyCode == Enum.KeyCode.N then
-				isNDown = true
-			end
-		end
-	end)
-
-	UserInputService.InputEnded:Connect(function(input, gameProcessed)
-		if input.UserInputType == Enum.UserInputType.MouseButton2 then
-			isRightMouseDown = false
-		end
-		if input.KeyCode == Enum.KeyCode.W then
-			moveDirection = moveDirection - Vector3.new(0, 0, -1)
-		elseif input.KeyCode == Enum.KeyCode.S then
-			moveDirection = moveDirection - Vector3.new(0, 0, 1)
-		elseif input.KeyCode == Enum.KeyCode.A then
-			moveDirection = moveDirection - Vector3.new(-1, 0, 0)
-		elseif input.KeyCode == Enum.KeyCode.D then
-			moveDirection = moveDirection - Vector3.new(1, 0, 0)
-		elseif input.KeyCode == Enum.KeyCode.Space then
-			isSpaceDown = false
-		elseif input.KeyCode == Enum.KeyCode.N then
-			isNDown = false
-		end
-	end)
-
-	UserInputService.InputChanged:Connect(function(input, gameProcessed)
-		if input.UserInputType == Enum.UserInputType.MouseMovement and isRightMouseDown then
-			local delta = input.Delta
-			cameraAngleY = cameraAngleY - math.rad(delta.X * cameraSensitivity)
-			cameraAngleX = math.clamp(cameraAngleX - math.rad(delta.Y * cameraSensitivity), math.rad(10), math.rad(80))
-		elseif input.UserInputType == Enum.UserInputType.MouseWheel then
-			cameraDistance = math.clamp(cameraDistance - input.Position.Z, 10, 100)
-		end
-	end)
-
-	local function setupSphere()
-		-- Create a sphere for the player.
-		local sphere = Instance.new("Part")
-		sphere.Name = "PlayerSphere"
-		sphere.Transparency = 0.5
-		sphere.CanCollide = true
-		sphere.Anchored = true
-		sphere.Shape = Enum.PartType.Ball
-		sphere.Size = Vector3.new(2, 2, 2)
-		sphere.Position = basePos
-		sphere.Parent = workspace
-
-		task.spawn(teleportCharacter)
-
-		RunService.RenderStepped:Connect(function(delta)
-			if isMouseDown and mouse.Target then
-				basePos = mouse.Hit.p
-			else
-				basePos = basePos + (moveDirection * moveSpeed * delta)
-			end
-			if isSpaceDown then
-				basePos = basePos + Vector3.new(0, moveSpeed * delta, 0)
-			end
-			if isNDown then
-				basePos = basePos - Vector3.new(0, moveSpeed * delta, 0)
-			end
-
-			sphere.CFrame = CFrame.new(basePos)
-			local offset = Vector3.new(
-				cameraDistance * math.cos(cameraAngleX) * math.sin(cameraAngleY),
-				cameraDistance * math.sin(cameraAngleX),
-				cameraDistance * math.cos(cameraAngleX) * math.cos(cameraAngleY)
-			)
-			local cameraPosition = sphere.Position + offset
-			camera.CFrame = CFrame.new(cameraPosition, sphere.Position)
-			positionLabel.Text = string.format("Position: X=%.2f, Y=%.2f, Z=%.2f", basePos.X, basePos.Y, basePos.Z)
+		RealCharacter.Humanoid.Died:Connect(function()
+			RealCharacter:Destroy()
+			FakeCharacter:Destroy()
 		end)
+		Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
 	end
-
-	setupSphere()
+	RealCharacter.Humanoid.Died:Connect(function()
+		RealCharacter:Destroy()
+		FakeCharacter:Destroy()
+	end)
+	Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
+	
+	local PseudoAnchor
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if PseudoAnchor ~= nil then
+			PseudoAnchor.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
+		end
+		if NoClip then
+			FakeCharacter.Humanoid:ChangeState(11)
+		end
+	end)
+	
+	PseudoAnchor = FakeCharacter.HumanoidRootPart
+	local function Invisible()
+		if IsInvisible == false then
+			local StoredCF = RealCharacter.HumanoidRootPart.CFrame
+			RealCharacter.HumanoidRootPart.CFrame = FakeCharacter.HumanoidRootPart.CFrame
+			FakeCharacter.HumanoidRootPart.CFrame = StoredCF
+			RealCharacter.Humanoid:UnequipTools()
+			Player.Character = FakeCharacter
+			workspace.CurrentCamera.CameraSubject = FakeCharacter.Humanoid
+			PseudoAnchor = RealCharacter.HumanoidRootPart
+			for i, v in pairs(FakeCharacter:GetChildren()) do
+				if v:IsA("LocalScript") then
+					v.Disabled = false
+				end
+			end
+			IsInvisible = true
+		else
+			local StoredCF = FakeCharacter.HumanoidRootPart.CFrame
+			FakeCharacter.HumanoidRootPart.CFrame = RealCharacter.HumanoidRootPart.CFrame
+			RealCharacter.HumanoidRootPart.CFrame = StoredCF
+			FakeCharacter.Humanoid:UnequipTools()
+			Player.Character = RealCharacter
+			workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
+			PseudoAnchor = FakeCharacter.HumanoidRootPart
+			for i, v in pairs(FakeCharacter:GetChildren()) do
+				if v:IsA("LocalScript") then
+					v.Disabled = true
+				end
+			end
+			IsInvisible = false
+		end
+	end
+	
+	game:GetService("UserInputService").InputBegan:Connect(function(key, gamep)
+		if gamep then return end
+		if key.KeyCode.Name:lower() == Keybind:lower() and CanInvis and RealCharacter and FakeCharacter then
+			if RealCharacter:FindFirstChild("HumanoidRootPart") and FakeCharacter:FindFirstChild("HumanoidRootPart") then
+				Invisible()
+			end
+		end
+	end)
+	local Sound = Instance.new("Sound", game:GetService("SoundService"))
+	Sound.SoundId = "rbxassetid://232127604"
+	Sound:Play()
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "loaded lmao",
+		Text = "press e to invis!!!",
+		Duration = 20,
+		Button1 = "Okay."
+	})
 end
 
 ---------------------------
@@ -382,8 +365,8 @@ delay(5, function()
 	fadeOutTween:Play()
 	fadeOutTween.Completed:Connect(function()
 		loadingText:Destroy()
-		-- Create six main buttons in buttonContainer (positions calculated to evenly space them)
-		-- Using fractions of the UI height: positions ~ 1/7, 2/7, …, 6/7.
+		-- Create six main buttons in buttonContainer (evenly spaced vertically)
+		-- Positions approximated at fractions of the UI height.
 		local newToolButton = Instance.new("TextButton")
 		newToolButton.Name = "newToolButton"
 		newToolButton.Size = UDim2.new(0,120,0,40)
