@@ -1,12 +1,14 @@
 -- toolchanger revisited, by interactable
 --[[
 Features:
-• Main UI (500×300) is centered.
-• After a loading fade-out, a button container appears with 4 main buttons:
+• Main UI (500×350) is centered.
+• After a loading fade-out, a button container appears with 6 main buttons:
     - new tool
     - open ui text changer
     - hipheight changer
     - player teleport
+    - f3x
+    - invis
 • When any pop-up is active, the main UI hides its buttons and displays a failsafe overlay.
 • Each button creates its corresponding draggable pop-up to the right of the main UI.
     - New Tool: Opens a 300×80 UI to enter a tool name and create a tool.
@@ -14,6 +16,8 @@ Features:
     - Hipheight Changer: Opens a 300×80 UI to change the player’s hipheight.
     - Player Teleport: Opens a 400×400 UI listing models (from Workspace:GetChildren()) with a Humanoid.
       Each entry shows the model’s name and a “tp to” button that teleports the player’s character.
+    - f3x: Runs a script from an external URL.
+    - invis: Runs a script that teleports your character’s parts far away and sets up a custom camera.
 • All pop-ups are draggable.
 • The close button on the main UI destroys the entire script; minimize shrinks the main UI.
 • The change result message waits 2 seconds before fading out over 2 seconds.
@@ -105,9 +109,9 @@ end
 -- MAIN UI SETUP (CENTERED)
 ---------------------------
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0,500,0,300)
+mainFrame.Size = UDim2.new(0,500,0,350)
 -- Center the main UI on the screen using Offset positioning:
-mainFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
+mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
 mainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
@@ -117,7 +121,7 @@ local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0,10)
 mainCorner.Parent = mainFrame
 
-local expandedSize = UDim2.new(0,500,0,300)
+local expandedSize = UDim2.new(0,500,0,350)
 local minimizedSize = UDim2.new(0,500,0,50)
 local isMinimized = false
 
@@ -206,6 +210,171 @@ local function updateMainUIState()
 end
 
 ---------------------------
+-- Invis Script Function
+---------------------------
+local function runInvisScript()
+	-- Invis script code:
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local UserInputService = game:GetService("UserInputService")
+	local player = Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+
+	local mouse = player:GetMouse()
+
+	-- Base position and movement variables.
+	local basePos = Vector3.new(0, 0, 0)  -- Start at (0,0,0)
+	local moveDirection = Vector3.new(0, 0, 0)
+	local moveSpeed = 60  -- Movement speed set to 60.
+
+	-- Input flags.
+	local isSpaceDown = false
+	local isNDown = false
+	local isRightMouseDown = false
+	local isMouseDown = false  -- Flag for left mouse button
+
+	-- Set up the camera.
+	local camera = workspace.CurrentCamera
+	camera.CameraType = Enum.CameraType.Scriptable
+	local cameraAngleX = math.rad(45)  -- Initial pitch.
+	local cameraAngleY = math.rad(0)   -- Initial yaw.
+	local cameraDistance = 20          -- Initial zoom distance.
+	local cameraSensitivity = 0.3      -- Adjust drag sensitivity as needed.
+
+	-- Function to continuously anchor and teleport all body parts.
+	local function teleportCharacter()
+		while true do
+			for _, part in ipairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Anchored = true  -- Anchor the part
+					part.Position = Vector3.new(0, 500, 1233333333333333)
+				end
+			end
+			task.wait()
+		end
+	end
+
+	-- UI Setup
+	local function createUI()
+		local screenGui = Instance.new("ScreenGui")
+		screenGui.Parent = player:FindFirstChildOfClass("PlayerGui")
+
+		local positionLabel = Instance.new("TextLabel")
+		positionLabel.Size = UDim2.new(1, 0, 0, 30)
+		positionLabel.Position = UDim2.new(0, 0, 1, -30)
+		positionLabel.BackgroundTransparency = 0.5
+		positionLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+		positionLabel.TextColor3 = Color3.new(1, 1, 1)
+		positionLabel.TextScaled = true
+		positionLabel.Parent = screenGui
+
+		return positionLabel
+	end
+
+	local positionLabel = createUI()
+
+	-- Left mouse button for setting movement target.
+	mouse.Button1Down:Connect(function()
+		isMouseDown = true
+	end)
+	mouse.Button1Up:Connect(function()
+		isMouseDown = false
+	end)
+
+	-- Right mouse button for dragging camera and WASD for movement.
+	UserInputService.InputBegan:Connect(function(input, gameProcessed)
+		if input.UserInputType == Enum.UserInputType.MouseButton2 then
+			isRightMouseDown = true
+		end
+		if not gameProcessed then
+			if input.KeyCode == Enum.KeyCode.W then
+				moveDirection = moveDirection + Vector3.new(0, 0, -1)
+			elseif input.KeyCode == Enum.KeyCode.S then
+				moveDirection = moveDirection + Vector3.new(0, 0, 1)
+			elseif input.KeyCode == Enum.KeyCode.A then
+				moveDirection = moveDirection + Vector3.new(-1, 0, 0)
+			elseif input.KeyCode == Enum.KeyCode.D then
+				moveDirection = moveDirection + Vector3.new(1, 0, 0)
+			elseif input.KeyCode == Enum.KeyCode.Space then
+				isSpaceDown = true
+			elseif input.KeyCode == Enum.KeyCode.N then
+				isNDown = true
+			end
+		end
+	end)
+
+	UserInputService.InputEnded:Connect(function(input, gameProcessed)
+		if input.UserInputType == Enum.UserInputType.MouseButton2 then
+			isRightMouseDown = false
+		end
+		if input.KeyCode == Enum.KeyCode.W then
+			moveDirection = moveDirection - Vector3.new(0, 0, -1)
+		elseif input.KeyCode == Enum.KeyCode.S then
+			moveDirection = moveDirection - Vector3.new(0, 0, 1)
+		elseif input.KeyCode == Enum.KeyCode.A then
+			moveDirection = moveDirection - Vector3.new(-1, 0, 0)
+		elseif input.KeyCode == Enum.KeyCode.D then
+			moveDirection = moveDirection - Vector3.new(1, 0, 0)
+		elseif input.KeyCode == Enum.KeyCode.Space then
+			isSpaceDown = false
+		elseif input.KeyCode == Enum.KeyCode.N then
+			isNDown = false
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input, gameProcessed)
+		if input.UserInputType == Enum.UserInputType.MouseMovement and isRightMouseDown then
+			local delta = input.Delta
+			cameraAngleY = cameraAngleY - math.rad(delta.X * cameraSensitivity)
+			cameraAngleX = math.clamp(cameraAngleX - math.rad(delta.Y * cameraSensitivity), math.rad(10), math.rad(80))
+		elseif input.UserInputType == Enum.UserInputType.MouseWheel then
+			cameraDistance = math.clamp(cameraDistance - input.Position.Z, 10, 100)
+		end
+	end)
+
+	local function setupSphere()
+		-- Create a sphere for the player.
+		local sphere = Instance.new("Part")
+		sphere.Name = "PlayerSphere"
+		sphere.Transparency = 0.5
+		sphere.CanCollide = true
+		sphere.Anchored = true
+		sphere.Shape = Enum.PartType.Ball
+		sphere.Size = Vector3.new(2, 2, 2)
+		sphere.Position = basePos
+		sphere.Parent = workspace
+
+		task.spawn(teleportCharacter)
+
+		RunService.RenderStepped:Connect(function(delta)
+			if isMouseDown and mouse.Target then
+				basePos = mouse.Hit.p
+			else
+				basePos = basePos + (moveDirection * moveSpeed * delta)
+			end
+			if isSpaceDown then
+				basePos = basePos + Vector3.new(0, moveSpeed * delta, 0)
+			end
+			if isNDown then
+				basePos = basePos - Vector3.new(0, moveSpeed * delta, 0)
+			end
+
+			sphere.CFrame = CFrame.new(basePos)
+			local offset = Vector3.new(
+				cameraDistance * math.cos(cameraAngleX) * math.sin(cameraAngleY),
+				cameraDistance * math.sin(cameraAngleX),
+				cameraDistance * math.cos(cameraAngleX) * math.cos(cameraAngleY)
+			)
+			local cameraPosition = sphere.Position + offset
+			camera.CFrame = CFrame.new(cameraPosition, sphere.Position)
+			positionLabel.Text = string.format("Position: X=%.2f, Y=%.2f, Z=%.2f", basePos.X, basePos.Y, basePos.Z)
+		end)
+	end
+
+	setupSphere()
+end
+
+---------------------------
 -- AFTER LOADING, SHOW MAIN BUTTONS
 ---------------------------
 delay(5, function()
@@ -213,11 +382,12 @@ delay(5, function()
 	fadeOutTween:Play()
 	fadeOutTween.Completed:Connect(function()
 		loadingText:Destroy()
-		-- Create four main buttons in buttonContainer (centered vertically)
+		-- Create six main buttons in buttonContainer (positions calculated to evenly space them)
+		-- Using fractions of the UI height: positions ~ 1/7, 2/7, …, 6/7.
 		local newToolButton = Instance.new("TextButton")
 		newToolButton.Name = "newToolButton"
 		newToolButton.Size = UDim2.new(0,120,0,40)
-		newToolButton.Position = UDim2.new(0.5,0,0.25,0)
+		newToolButton.Position = UDim2.new(0.5,0,0.14,0)
 		newToolButton.AnchorPoint = Vector2.new(0.5,0.5)
 		newToolButton.Text = "new tool"
 		newToolButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -229,7 +399,7 @@ delay(5, function()
 		local openTextButton = Instance.new("TextButton")
 		openTextButton.Name = "openTextButton"
 		openTextButton.Size = UDim2.new(0,120,0,40)
-		openTextButton.Position = UDim2.new(0.5,0,0.45,0)
+		openTextButton.Position = UDim2.new(0.5,0,0.29,0)
 		openTextButton.AnchorPoint = Vector2.new(0.5,0.5)
 		openTextButton.Text = "open ui text changer"
 		openTextButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -241,7 +411,7 @@ delay(5, function()
 		local hipheightButton = Instance.new("TextButton")
 		hipheightButton.Name = "hipheightButton"
 		hipheightButton.Size = UDim2.new(0,120,0,40)
-		hipheightButton.Position = UDim2.new(0.5,0,0.65,0)
+		hipheightButton.Position = UDim2.new(0.5,0,0.43,0)
 		hipheightButton.AnchorPoint = Vector2.new(0.5,0.5)
 		hipheightButton.Text = "hipheight changer"
 		hipheightButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -253,7 +423,7 @@ delay(5, function()
 		local teleportButton = Instance.new("TextButton")
 		teleportButton.Name = "teleportButton"
 		teleportButton.Size = UDim2.new(0,120,0,40)
-		teleportButton.Position = UDim2.new(0.5,0,0.85,0)
+		teleportButton.Position = UDim2.new(0.5,0,0.57,0)
 		teleportButton.AnchorPoint = Vector2.new(0.5,0.5)
 		teleportButton.Text = "player teleport"
 		teleportButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -261,6 +431,36 @@ delay(5, function()
 		teleportButton.Font = Enum.Font.SourceSans
 		teleportButton.TextScaled = true
 		teleportButton.Parent = buttonContainer
+
+		local f3xButton = Instance.new("TextButton")
+		f3xButton.Name = "f3xButton"
+		f3xButton.Size = UDim2.new(0,120,0,40)
+		f3xButton.Position = UDim2.new(0.5,0,0.71,0)
+		f3xButton.AnchorPoint = Vector2.new(0.5,0.5)
+		f3xButton.Text = "f3x"
+		f3xButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
+		f3xButton.TextColor3 = Color3.fromRGB(255,255,255)
+		f3xButton.Font = Enum.Font.SourceSans
+		f3xButton.TextScaled = true
+		f3xButton.Parent = buttonContainer
+		f3xButton.MouseButton1Click:Connect(function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
+		end)
+
+		local invisButton = Instance.new("TextButton")
+		invisButton.Name = "invisButton"
+		invisButton.Size = UDim2.new(0,120,0,40)
+		invisButton.Position = UDim2.new(0.5,0,0.86,0)
+		invisButton.AnchorPoint = Vector2.new(0.5,0.5)
+		invisButton.Text = "invis"
+		invisButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
+		invisButton.TextColor3 = Color3.fromRGB(255,255,255)
+		invisButton.Font = Enum.Font.SourceSans
+		invisButton.TextScaled = true
+		invisButton.Parent = buttonContainer
+		invisButton.MouseButton1Click:Connect(function()
+			runInvisScript()
+		end)
 
 		---------------------------
 		-- Pop-up UI FUNCTIONS (created to the right of mainFrame)
@@ -489,7 +689,7 @@ delay(5, function()
 					panel.Size = UDim2.new(0,350,0,100)
 					panel.Position = UDim2.new(1,10,0.5,-50)
 					panel.BackgroundColor3 = Color3.fromRGB(40,40,40)
-					-- FIX: Set parent to mainFrame so it's positioned relative to the UI
+					-- Set parent to mainFrame so it's positioned relative to the UI
 					panel.Parent = mainFrame
 					makeDraggable(panel)
 					
