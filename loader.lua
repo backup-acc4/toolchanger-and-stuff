@@ -1,6 +1,3 @@
--- free at last... --
---- finished and working on page 2. ---
----reworked things---
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
@@ -11,6 +8,7 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "toolchangergui"
 screenGui.Parent = CoreGui
 local activeUI = nil
+
 local function makeDraggable(frame)
 	frame.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -31,6 +29,7 @@ local function makeDraggable(frame)
 		end
 	end)
 end
+
 local function tweenOutAndDestroy(uiElement, duration, callback)
 	duration = duration or 0.5
 	local tween = TweenService:Create(uiElement, TweenInfo.new(duration, Enum.EasingStyle.Quad), {Size = UDim2.new(0,0,0,0)})
@@ -40,12 +39,14 @@ local function tweenOutAndDestroy(uiElement, duration, callback)
 		if callback then callback() end
 	end)
 end
+
 local function tweenIn(uiElement, targetSize, duration)
 	duration = duration or 0.5
 	uiElement.Size = UDim2.new(0,0,0,0)
 	local tween = TweenService:Create(uiElement, TweenInfo.new(duration, Enum.EasingStyle.Quad), {Size = targetSize})
 	tween:Play()
 end
+
 local function showChangeResult(msg)
 	local label = Instance.new("TextLabel")
 	label.Size = UDim2.new(0,200,0,50)
@@ -65,6 +66,7 @@ local function showChangeResult(msg)
 		tween.Completed:Connect(function() label:Destroy() end)
 	end)
 end
+
 local mainFrame = Instance.new("Frame")
 mainFrame.Size = UDim2.new(0,500,0,420)
 mainFrame.Position = UDim2.new(0.5, -250, 0.5, -210)
@@ -149,6 +151,7 @@ local function updateMainUIState()
 		buttonContainer.Visible = true
 	end
 end
+
 local function runInvisScript()
 	local ScriptStarted = false
 	local Keybind = "E"
@@ -278,6 +281,7 @@ local function runInvisScript()
 	Sound:Play()
 	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "loaded lmao", Text = "press e to invis!!!", Duration = 20, Button1 = "Okay."})
 end
+
 local function runFlingScript()
 	local speaker = Players.LocalPlayer
 	local function getRoot(character)
@@ -316,11 +320,11 @@ local function runFlingScript()
 		end
 	until isDead
 end
+
 local function runPage2Script()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/backup-acc4/toolchanger-and-stuff/refs/heads/main/function2.lua"))()
-	script:Destroy()
-
 end
+
 delay(5, function()
 	local fadeOutTween = TweenService:Create(loadingText, TweenInfo.new(1, Enum.EasingStyle.Linear), {TextTransparency = 1})
 	fadeOutTween:Play()
@@ -337,6 +341,7 @@ delay(5, function()
 		newToolButton.Font = Enum.Font.SourceSans
 		newToolButton.TextScaled = true
 		newToolButton.Parent = buttonContainer
+		
 		local openTextButton = Instance.new("TextButton")
 		openTextButton.Name = "openTextButton"
 		openTextButton.Size = UDim2.new(0,120,0,40)
@@ -348,6 +353,7 @@ delay(5, function()
 		openTextButton.Font = Enum.Font.SourceSans
 		openTextButton.TextScaled = true
 		openTextButton.Parent = buttonContainer
+		
 		local hipheightButton = Instance.new("TextButton")
 		hipheightButton.Name = "hipheightButton"
 		hipheightButton.Size = UDim2.new(0,120,0,40)
@@ -359,6 +365,7 @@ delay(5, function()
 		hipheightButton.Font = Enum.Font.SourceSans
 		hipheightButton.TextScaled = true
 		hipheightButton.Parent = buttonContainer
+		
 		local teleportButton = Instance.new("TextButton")
 		teleportButton.Name = "teleportButton"
 		teleportButton.Size = UDim2.new(0,120,0,40)
@@ -370,6 +377,7 @@ delay(5, function()
 		teleportButton.Font = Enum.Font.SourceSans
 		teleportButton.TextScaled = true
 		teleportButton.Parent = buttonContainer
+		
 		local f3xButton = Instance.new("TextButton")
 		f3xButton.Name = "f3xButton"
 		f3xButton.Size = UDim2.new(0,120,0,40)
@@ -384,6 +392,7 @@ delay(5, function()
 		f3xButton.MouseButton1Click:Connect(function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
 		end)
+		
 		local invisButton = Instance.new("TextButton")
 		invisButton.Name = "invisButton"
 		invisButton.Size = UDim2.new(0,120,0,40)
@@ -398,6 +407,7 @@ delay(5, function()
 		invisButton.MouseButton1Click:Connect(function()
 			runInvisScript()
 		end)
+		
 		local flingButton = Instance.new("TextButton")
 		flingButton.Name = "flingButton"
 		flingButton.Size = UDim2.new(0,120,0,40)
@@ -412,11 +422,13 @@ delay(5, function()
 		flingButton.MouseButton1Click:Connect(function()
 			runFlingScript()
 		end)
+		
+		-- Modified page2 button (placed at bottom-left and destroys the UI after click)
 		local page2Button = Instance.new("TextButton")
 		page2Button.Name = "page2Button"
 		page2Button.Size = UDim2.new(0,120,0,40)
-		page2Button.Position = UDim2.new(1,-10,0,10)
-		page2Button.AnchorPoint = Vector2.new(1,0)
+		page2Button.Position = UDim2.new(0, 10, 1, -10)  -- bottom-left corner
+		page2Button.AnchorPoint = Vector2.new(0, 1)
 		page2Button.Text = "page 2"
 		page2Button.BackgroundColor3 = Color3.fromRGB(50,50,50)
 		page2Button.TextColor3 = Color3.fromRGB(255,255,255)
@@ -425,8 +437,9 @@ delay(5, function()
 		page2Button.Parent = mainFrame
 		page2Button.MouseButton1Click:Connect(function()
 			runPage2Script()
-			script:Destroy()
+			screenGui:Destroy()  -- Destroy the UI after clicking
 		end)
+		
 		local function openNewToolUI()
 			if activeUI then return end
 			local newToolUI = Instance.new("Frame")
@@ -501,6 +514,7 @@ delay(5, function()
 			activeUI = newToolUI
 			updateMainUIState()
 		end
+		
 		local function openHipheightUI()
 			if activeUI then return end
 			local hipUI = Instance.new("Frame")
@@ -564,6 +578,7 @@ delay(5, function()
 			activeUI = hipUI
 			updateMainUIState()
 		end
+		
 		local function openTextChangerUI()
 			if activeUI then return end
 			local sideUI = Instance.new("Frame")
@@ -681,6 +696,7 @@ delay(5, function()
 			activeUI = sideUI
 			updateMainUIState()
 		end
+		
 		local function openPlayerTeleportUI()
 			if activeUI then return end
 			local tpUI = Instance.new("Frame")
@@ -756,6 +772,7 @@ delay(5, function()
 			activeUI = tpUI
 			updateMainUIState()
 		end
+		
 		newToolButton.MouseButton1Click:Connect(function() openNewToolUI() end)
 		openTextButton.MouseButton1Click:Connect(function() openTextChangerUI() end)
 		hipheightButton.MouseButton1Click:Connect(function() openHipheightUI() end)
