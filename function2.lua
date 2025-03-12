@@ -40,7 +40,7 @@ makeDraggable(mainFrame)
 local loadingText = Instance.new("TextLabel")
 loadingText.Size = UDim2.new(1,0,1,0)
 loadingText.BackgroundTransparency = 1
-loadingText.Text = "loading..."
+loadingText.Text = "loading... (more stuff coming soon!)"
 loadingText.TextColor3 = Color3.fromRGB(180,180,180)
 loadingText.Font = Enum.Font.SourceSans
 loadingText.TextScaled = true
