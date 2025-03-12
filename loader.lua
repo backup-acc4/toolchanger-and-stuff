@@ -1,71 +1,36 @@
--- toolchanger revisited, by interactable
---[[
-Features:
-• Main UI (500×350) is centered.
-• After a loading fade-out, a button container appears with 6 main buttons:
-    - new tool
-    - open ui text changer
-    - hipheight changer
-    - player teleport
-    - f3x
-    - invis
-• When any pop-up is active, the main UI hides its buttons and displays a failsafe overlay.
-• Each button creates its corresponding draggable pop-up to the right of the main UI.
-    - New Tool: Opens a 300×80 UI to enter a tool name and create a tool.
-    - Open UI Text Changer: Opens a 400×400 UI listing workspace UI objects (grouped by name) for text editing.
-    - Hipheight Changer: Opens a 300×80 UI to change the player’s hipheight.
-    - Player Teleport: Opens a 400×400 UI listing models (from Workspace:GetChildren()) with a Humanoid.
-      Each entry shows the model’s name and a “tp to” button that teleports the player’s character.
-    - f3x: Runs a script from an external URL.
-    - invis: Runs a script that creates a fake (invisible) character and toggles invisibility when you press E.
-• All pop-ups are draggable.
-• The close button on the main UI destroys the entire script; minimize shrinks the main UI.
-• The change result message waits 2 seconds before fading out over 2 seconds.
---]]
-
----------------------------
--- SERVICES & GLOBAL VARIABLES
----------------------------
+-- free at last... --
+--- finished and working on page 2. ---
+---reworked things---
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
-
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "toolchangergui"
 screenGui.Parent = CoreGui
-
--- Global variable to track the currently active pop-up UI.
 local activeUI = nil
-
----------------------------
--- UTILITY FUNCTIONS
----------------------------
 local function makeDraggable(frame)
-	local dragging = false
-	local dragStart, startPos
 	frame.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = true
-			dragStart = input.Position
-			startPos = frame.Position
-		end
-	end)
-	frame.InputChanged:Connect(function(input)
-		if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-			local delta = input.Position - dragStart
-			frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-		end
-	end)
-	UserInputService.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = false
+			local dragging = true
+			local dragStart = input.Position
+			local startPos = frame.Position
+			frame.InputChanged:Connect(function(input)
+				if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+					local delta = input.Position - dragStart
+					frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+				end
+			end)
+			UserInputService.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					dragging = false
+				end
+			end)
 		end
 	end)
 end
-
 local function tweenOutAndDestroy(uiElement, duration, callback)
 	duration = duration or 0.5
 	local tween = TweenService:Create(uiElement, TweenInfo.new(duration, Enum.EasingStyle.Quad), {Size = UDim2.new(0,0,0,0)})
@@ -75,14 +40,12 @@ local function tweenOutAndDestroy(uiElement, duration, callback)
 		if callback then callback() end
 	end)
 end
-
 local function tweenIn(uiElement, targetSize, duration)
 	duration = duration or 0.5
 	uiElement.Size = UDim2.new(0,0,0,0)
 	local tween = TweenService:Create(uiElement, TweenInfo.new(duration, Enum.EasingStyle.Quad), {Size = targetSize})
 	tween:Play()
 end
-
 local function showChangeResult(msg)
 	local label = Instance.new("TextLabel")
 	label.Size = UDim2.new(0,200,0,50)
@@ -94,41 +57,29 @@ local function showChangeResult(msg)
 	label.Text = msg
 	label.BorderSizePixel = 0
 	label.Parent = screenGui
-	-- Position below mainFrame:
 	local pos = mainFrame.AbsolutePosition + Vector2.new(0, mainFrame.AbsoluteSize.Y + 10)
 	label.Position = UDim2.new(0, pos.X, 0, pos.Y)
-	-- Wait 2 seconds then fade out over 2 seconds:
 	delay(2, function()
 		local tween = TweenService:Create(label, TweenInfo.new(2, Enum.EasingStyle.Linear), {TextTransparency = 1, BackgroundTransparency = 1})
 		tween:Play()
 		tween.Completed:Connect(function() label:Destroy() end)
 	end)
 end
-
----------------------------
--- MAIN UI SETUP (CENTERED)
----------------------------
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0,500,0,350)
--- Center the main UI on the screen using Offset positioning:
-mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
+mainFrame.Size = UDim2.new(0,500,0,420)
+mainFrame.Position = UDim2.new(0.5, -250, 0.5, -210)
 mainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
 makeDraggable(mainFrame)
-
 local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0,10)
 mainCorner.Parent = mainFrame
-
-local expandedSize = UDim2.new(0,500,0,350)
+local expandedSize = UDim2.new(0,500,0,420)
 local minimizedSize = UDim2.new(0,500,0,50)
 local isMinimized = false
-
 local expandTween = TweenService:Create(mainFrame, TweenInfo.new(1, Enum.EasingStyle.Quad), {Size = expandedSize})
 expandTween:Play()
-
--- Loading Text
 local loadingText = Instance.new("TextLabel")
 loadingText.Size = UDim2.new(1,0,1,0)
 loadingText.BackgroundTransparency = 1
@@ -142,8 +93,6 @@ loadingText.TextTransparency = 1
 loadingText.Parent = mainFrame
 local fadeInTween = TweenService:Create(loadingText, TweenInfo.new(1, Enum.EasingStyle.Quad), {TextTransparency = 0})
 fadeInTween:Play()
-
--- Close Button (destroys entire script)
 local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.new(0,50,0,25)
 closeButton.Position = UDim2.new(1,-55,0,10)
@@ -156,8 +105,6 @@ closeButton.Parent = mainFrame
 closeButton.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
 end)
-
--- Minimize Button (shrinks main UI and hides button container)
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Size = UDim2.new(0,50,0,25)
 minimizeButton.Position = UDim2.new(1,-120,0,10)
@@ -180,15 +127,10 @@ minimizeButton.MouseButton1Click:Connect(function()
 		buttonContainer.Visible = true
 	end
 end)
-
----------------------------
--- MAIN BUTTON CONTAINER & FAILSAFE OVERLAY
----------------------------
 local buttonContainer = Instance.new("Frame")
 buttonContainer.Size = UDim2.new(1,0,1,0)
 buttonContainer.BackgroundTransparency = 1
 buttonContainer.Parent = mainFrame
-
 local failsafeLabel = Instance.new("TextLabel")
 failsafeLabel.Size = UDim2.new(1,0,1,0)
 failsafeLabel.BackgroundTransparency = 1
@@ -198,7 +140,6 @@ failsafeLabel.Font = Enum.Font.SourceSans
 failsafeLabel.TextScaled = true
 failsafeLabel.Visible = false
 failsafeLabel.Parent = mainFrame
-
 local function updateMainUIState()
 	if activeUI then
 		buttonContainer.Visible = false
@@ -208,32 +149,23 @@ local function updateMainUIState()
 		buttonContainer.Visible = true
 	end
 end
-
----------------------------
--- Invis Script Function (updated)
----------------------------
 local function runInvisScript()
-	-- Invis script code:
 	local ScriptStarted = false
-	local Keybind = "E" --Set to whatever you want, has to be the name of a KeyCode Enum.
-	local Transparency = true --Will make you slightly transparent when you are invisible.
-	local NoClip = false --Will make your fake character no clip.
-	
+	local Keybind = "E"
+	local Transparency = true
+	local NoClip = false
 	local Player = game:GetService("Players").LocalPlayer
 	local RealCharacter = Player.Character or Player.CharacterAdded:Wait()
-	
 	local IsInvisible = false
-	
 	RealCharacter.Archivable = true
 	local FakeCharacter = RealCharacter:Clone()
 	local Part = Instance.new("Part", workspace)
 	Part.Anchored = true
 	Part.Size = Vector3.new(200, 1, 200)
-	Part.CFrame = CFrame.new(0, -500, 0) --Far away from the map.
+	Part.CFrame = CFrame.new(0, -500, 0)
 	Part.CanCollide = true
 	FakeCharacter.Parent = workspace
 	FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
-	
 	for i, v in pairs(RealCharacter:GetChildren()) do
 		if v:IsA("LocalScript") then
 			local clone = v:Clone()
@@ -257,18 +189,16 @@ local function runInvisScript()
 		IsInvisible = false
 		FakeCharacter:Destroy()
 		workspace.CurrentCamera.CameraSubject = RealCharacter.Humanoid
-	
 		RealCharacter.Archivable = true
 		FakeCharacter = RealCharacter:Clone()
 		Part:Destroy()
 		Part = Instance.new("Part", workspace)
 		Part.Anchored = true
 		Part.Size = Vector3.new(200, 1, 200)
-		Part.CFrame = CFrame.new(9999, 9999, 9999) --Far away from the map.
+		Part.CFrame = CFrame.new(9999, 9999, 9999)
 		Part.CanCollide = true
 		FakeCharacter.Parent = workspace
 		FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
-	
 		for i, v in pairs(RealCharacter:GetChildren()) do
 			if v:IsA("LocalScript") then
 				local clone = v:Clone()
@@ -294,7 +224,6 @@ local function runInvisScript()
 		FakeCharacter:Destroy()
 	end)
 	Player.CharacterAppearanceLoaded:Connect(RealCharacterDied)
-	
 	local PseudoAnchor
 	game:GetService("RunService").RenderStepped:Connect(function()
 		if PseudoAnchor ~= nil then
@@ -304,7 +233,6 @@ local function runInvisScript()
 			FakeCharacter.Humanoid:ChangeState(11)
 		end
 	end)
-	
 	PseudoAnchor = FakeCharacter.HumanoidRootPart
 	local function Invisible()
 		if IsInvisible == false then
@@ -337,7 +265,6 @@ local function runInvisScript()
 			IsInvisible = false
 		end
 	end
-	
 	game:GetService("UserInputService").InputBegan:Connect(function(key, gamep)
 		if gamep then return end
 		if key.KeyCode.Name:lower() == Keybind:lower() and CanInvis and RealCharacter and FakeCharacter then
@@ -349,28 +276,58 @@ local function runInvisScript()
 	local Sound = Instance.new("Sound", game:GetService("SoundService"))
 	Sound.SoundId = "rbxassetid://232127604"
 	Sound:Play()
-	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "loaded lmao",
-		Text = "press e to invis!!!",
-		Duration = 20,
-		Button1 = "Okay."
-	})
+	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "loaded lmao", Text = "press e to invis!!!", Duration = 20, Button1 = "Okay."})
 end
-
----------------------------
--- AFTER LOADING, SHOW MAIN BUTTONS
----------------------------
+local function runFlingScript()
+	local speaker = Players.LocalPlayer
+	local function getRoot(character)
+		return character and character:FindFirstChild("HumanoidRootPart")
+	end
+	local humanoid = speaker.Character and speaker.Character:FindFirstChildWhichIsA("Humanoid")
+	local isDead = false
+	if humanoid then
+		humanoid.Died:Connect(function()
+			isDead = true
+			execCmd("unwalkfling")
+		end)
+	end
+	execCmd("noclip nonotify")
+	walkflinging = true
+	repeat 
+		RunService.Heartbeat:Wait()
+		local character = speaker.Character
+		local root = getRoot(character)
+		local vel, movel = nil, 0.1
+		while not (character and character.Parent and root and root.Parent) do
+			RunService.Heartbeat:Wait()
+			character = speaker.Character
+			root = getRoot(character)
+		end
+		vel = root.Velocity
+		root.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+		RunService.RenderStepped:Wait()
+		if character and character.Parent and root and root.Parent then
+			root.Velocity = vel
+		end
+		RunService.Stepped:Wait()
+		if character and character.Parent and root and root.Parent then
+			root.Velocity = vel + Vector3.new(0, movel, 0)
+			movel = movel * -1
+		end
+	until isDead
+end
+local function runPage2Script()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/backup-acc4/toolchanger-and-stuff/refs/heads/main/function2.lua"))()
+end
 delay(5, function()
 	local fadeOutTween = TweenService:Create(loadingText, TweenInfo.new(1, Enum.EasingStyle.Linear), {TextTransparency = 1})
 	fadeOutTween:Play()
 	fadeOutTween.Completed:Connect(function()
 		loadingText:Destroy()
-		-- Create six main buttons in buttonContainer (evenly spaced vertically)
-		-- Positions approximated at fractions of the UI height.
 		local newToolButton = Instance.new("TextButton")
 		newToolButton.Name = "newToolButton"
 		newToolButton.Size = UDim2.new(0,120,0,40)
-		newToolButton.Position = UDim2.new(0.5,0,0.14,0)
+		newToolButton.Position = UDim2.new(0.5,0,0.125,0)
 		newToolButton.AnchorPoint = Vector2.new(0.5,0.5)
 		newToolButton.Text = "new tool"
 		newToolButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -378,11 +335,10 @@ delay(5, function()
 		newToolButton.Font = Enum.Font.SourceSans
 		newToolButton.TextScaled = true
 		newToolButton.Parent = buttonContainer
-
 		local openTextButton = Instance.new("TextButton")
 		openTextButton.Name = "openTextButton"
 		openTextButton.Size = UDim2.new(0,120,0,40)
-		openTextButton.Position = UDim2.new(0.5,0,0.29,0)
+		openTextButton.Position = UDim2.new(0.5,0,0.25,0)
 		openTextButton.AnchorPoint = Vector2.new(0.5,0.5)
 		openTextButton.Text = "open ui text changer"
 		openTextButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -390,11 +346,10 @@ delay(5, function()
 		openTextButton.Font = Enum.Font.SourceSans
 		openTextButton.TextScaled = true
 		openTextButton.Parent = buttonContainer
-
 		local hipheightButton = Instance.new("TextButton")
 		hipheightButton.Name = "hipheightButton"
 		hipheightButton.Size = UDim2.new(0,120,0,40)
-		hipheightButton.Position = UDim2.new(0.5,0,0.43,0)
+		hipheightButton.Position = UDim2.new(0.5,0,0.375,0)
 		hipheightButton.AnchorPoint = Vector2.new(0.5,0.5)
 		hipheightButton.Text = "hipheight changer"
 		hipheightButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -402,11 +357,10 @@ delay(5, function()
 		hipheightButton.Font = Enum.Font.SourceSans
 		hipheightButton.TextScaled = true
 		hipheightButton.Parent = buttonContainer
-
 		local teleportButton = Instance.new("TextButton")
 		teleportButton.Name = "teleportButton"
 		teleportButton.Size = UDim2.new(0,120,0,40)
-		teleportButton.Position = UDim2.new(0.5,0,0.57,0)
+		teleportButton.Position = UDim2.new(0.5,0,0.5,0)
 		teleportButton.AnchorPoint = Vector2.new(0.5,0.5)
 		teleportButton.Text = "player teleport"
 		teleportButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -414,11 +368,10 @@ delay(5, function()
 		teleportButton.Font = Enum.Font.SourceSans
 		teleportButton.TextScaled = true
 		teleportButton.Parent = buttonContainer
-
 		local f3xButton = Instance.new("TextButton")
 		f3xButton.Name = "f3xButton"
 		f3xButton.Size = UDim2.new(0,120,0,40)
-		f3xButton.Position = UDim2.new(0.5,0,0.71,0)
+		f3xButton.Position = UDim2.new(0.5,0,0.625,0)
 		f3xButton.AnchorPoint = Vector2.new(0.5,0.5)
 		f3xButton.Text = "f3x"
 		f3xButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -429,11 +382,10 @@ delay(5, function()
 		f3xButton.MouseButton1Click:Connect(function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
 		end)
-
 		local invisButton = Instance.new("TextButton")
 		invisButton.Name = "invisButton"
 		invisButton.Size = UDim2.new(0,120,0,40)
-		invisButton.Position = UDim2.new(0.5,0,0.86,0)
+		invisButton.Position = UDim2.new(0.5,0,0.75,0)
 		invisButton.AnchorPoint = Vector2.new(0.5,0.5)
 		invisButton.Text = "invis"
 		invisButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
@@ -444,23 +396,46 @@ delay(5, function()
 		invisButton.MouseButton1Click:Connect(function()
 			runInvisScript()
 		end)
-
-		---------------------------
-		-- Pop-up UI FUNCTIONS (created to the right of mainFrame)
-		---------------------------
+		local flingButton = Instance.new("TextButton")
+		flingButton.Name = "flingButton"
+		flingButton.Size = UDim2.new(0,120,0,40)
+		flingButton.Position = UDim2.new(0.5,0,0.875,0)
+		flingButton.AnchorPoint = Vector2.new(0.5,0.5)
+		flingButton.Text = "fling"
+		flingButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
+		flingButton.TextColor3 = Color3.fromRGB(255,255,255)
+		flingButton.Font = Enum.Font.SourceSans
+		flingButton.TextScaled = true
+		flingButton.Parent = buttonContainer
+		flingButton.MouseButton1Click:Connect(function()
+			runFlingScript()
+		end)
+		local page2Button = Instance.new("TextButton")
+		page2Button.Name = "page2Button"
+		page2Button.Size = UDim2.new(0,120,0,40)
+		page2Button.Position = UDim2.new(1,-10,0,10)
+		page2Button.AnchorPoint = Vector2.new(1,0)
+		page2Button.Text = "page 2"
+		page2Button.BackgroundColor3 = Color3.fromRGB(50,50,50)
+		page2Button.TextColor3 = Color3.fromRGB(255,255,255)
+		page2Button.Font = Enum.Font.SourceSans
+		page2Button.TextScaled = true
+		page2Button.Parent = mainFrame
+		page2Button.MouseButton1Click:Connect(function()
+			runPage2Script()
+		end)
 		local function openNewToolUI()
 			if activeUI then return end
 			local newToolUI = Instance.new("Frame")
 			newToolUI.Name = "newToolUI"
 			newToolUI.Size = UDim2.new(0,300,0,80)
-			newToolUI.Position = UDim2.new(1,10,0.5,-40) -- to right of mainFrame
+			newToolUI.Position = UDim2.new(1,10,0.5,-40)
 			newToolUI.BackgroundColor3 = Color3.fromRGB(40,40,40)
 			newToolUI.Parent = mainFrame
 			makeDraggable(newToolUI)
 			local uiCorner = Instance.new("UICorner")
 			uiCorner.CornerRadius = UDim.new(0,10)
 			uiCorner.Parent = newToolUI
-
 			local closeNewTool = Instance.new("TextButton")
 			closeNewTool.Size = UDim2.new(0,50,0,25)
 			closeNewTool.Position = UDim2.new(1,-55,0,5)
@@ -476,7 +451,6 @@ delay(5, function()
 					updateMainUIState()
 				end)
 			end)
-
 			local toolBox = Instance.new("TextBox")
 			toolBox.Size = UDim2.new(0,200,0,30)
 			toolBox.Position = UDim2.new(0,10,0,40)
@@ -486,7 +460,6 @@ delay(5, function()
 			toolBox.TextScaled = true
 			toolBox.PlaceholderText = "tool name"
 			toolBox.Parent = newToolUI
-
 			local createButton = Instance.new("TextButton")
 			createButton.Size = UDim2.new(0,80,0,30)
 			createButton.Position = UDim2.new(0,220,0,40)
@@ -496,7 +469,6 @@ delay(5, function()
 			createButton.Font = Enum.Font.SourceSans
 			createButton.TextScaled = true
 			createButton.Parent = newToolUI
-
 			createButton.MouseButton1Click:Connect(function()
 				local toolName = toolBox.Text
 				if toolName == "" then toolName = "new tool" end
@@ -526,7 +498,6 @@ delay(5, function()
 			activeUI = newToolUI
 			updateMainUIState()
 		end
-
 		local function openHipheightUI()
 			if activeUI then return end
 			local hipUI = Instance.new("Frame")
@@ -539,7 +510,6 @@ delay(5, function()
 			local uiCorner = Instance.new("UICorner")
 			uiCorner.CornerRadius = UDim.new(0,10)
 			uiCorner.Parent = hipUI
-
 			local closeHip = Instance.new("TextButton")
 			closeHip.Size = UDim2.new(0,50,0,25)
 			closeHip.Position = UDim2.new(1,-55,0,5)
@@ -555,7 +525,6 @@ delay(5, function()
 					updateMainUIState()
 				end)
 			end)
-
 			local hipBox = Instance.new("TextBox")
 			hipBox.Size = UDim2.new(0,200,0,30)
 			hipBox.Position = UDim2.new(0,10,0,40)
@@ -565,7 +534,6 @@ delay(5, function()
 			hipBox.TextScaled = true
 			hipBox.PlaceholderText = "hipheight value"
 			hipBox.Parent = hipUI
-
 			local applyHip = Instance.new("TextButton")
 			applyHip.Size = UDim2.new(0,80,0,30)
 			applyHip.Position = UDim2.new(0,220,0,40)
@@ -575,7 +543,6 @@ delay(5, function()
 			applyHip.Font = Enum.Font.SourceSans
 			applyHip.TextScaled = true
 			applyHip.Parent = hipUI
-
 			applyHip.MouseButton1Click:Connect(function()
 				local newHip = tonumber(hipBox.Text)
 				local player = Players.LocalPlayer
@@ -594,7 +561,6 @@ delay(5, function()
 			activeUI = hipUI
 			updateMainUIState()
 		end
-
 		local function openTextChangerUI()
 			if activeUI then return end
 			local sideUI = Instance.new("Frame")
@@ -602,10 +568,8 @@ delay(5, function()
 			sideUI.Size = UDim2.new(0,400,0,400)
 			sideUI.Position = UDim2.new(1,10,0.5,-200)
 			sideUI.BackgroundColor3 = Color3.fromRGB(30,30,30)
-			-- Changed from screenGui to mainFrame
 			sideUI.Parent = mainFrame
 			makeDraggable(sideUI)
-
 			local sideClose = Instance.new("TextButton")
 			sideClose.Size = UDim2.new(0,50,0,25)
 			sideClose.Position = UDim2.new(1,-55,0,5)
@@ -621,17 +585,14 @@ delay(5, function()
 					updateMainUIState()
 				end)
 			end)
-
 			local scrollingFrame = Instance.new("ScrollingFrame")
 			scrollingFrame.Size = UDim2.new(1,0,1,-35)
 			scrollingFrame.Position = UDim2.new(0,0,0,35)
 			scrollingFrame.BackgroundTransparency = 1
 			scrollingFrame.Parent = sideUI
-
 			local listLayout = Instance.new("UIListLayout")
 			listLayout.Parent = scrollingFrame
 			listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
 			wait(0.1)
 			local groups = {}
 			for _, obj in ipairs(Workspace:GetDescendants()) do
@@ -641,13 +602,11 @@ delay(5, function()
 					table.insert(groups[key], obj)
 				end
 			end
-
 			for name, objs in pairs(groups) do
 				local entry = Instance.new("Frame")
 				entry.Size = UDim2.new(1,0,0,30)
 				entry.BackgroundTransparency = 1
 				entry.Parent = scrollingFrame
-
 				local nameLabel = Instance.new("TextLabel")
 				nameLabel.Size = UDim2.new(0.6,0,1,0)
 				nameLabel.BackgroundTransparency = 1
@@ -656,7 +615,6 @@ delay(5, function()
 				nameLabel.Font = Enum.Font.SourceSans
 				nameLabel.TextScaled = true
 				nameLabel.Parent = entry
-
 				local changeButton = Instance.new("TextButton")
 				changeButton.Size = UDim2.new(0.4,0,1,0)
 				changeButton.Position = UDim2.new(0.6,0,0,0)
@@ -666,16 +624,13 @@ delay(5, function()
 				changeButton.Font = Enum.Font.SourceSans
 				changeButton.TextScaled = true
 				changeButton.Parent = entry
-
 				changeButton.MouseButton1Click:Connect(function()
 					local panel = Instance.new("Frame")
 					panel.Size = UDim2.new(0,350,0,100)
 					panel.Position = UDim2.new(1,10,0.5,-50)
 					panel.BackgroundColor3 = Color3.fromRGB(40,40,40)
-					-- Set parent to mainFrame so it's positioned relative to the UI
 					panel.Parent = mainFrame
 					makeDraggable(panel)
-					
 					local panelClose = Instance.new("TextButton")
 					panelClose.Size = UDim2.new(0,50,0,25)
 					panelClose.Position = UDim2.new(1,-55,0,5)
@@ -688,7 +643,6 @@ delay(5, function()
 					panelClose.MouseButton1Click:Connect(function()
 						tweenOutAndDestroy(panel, 0.5)
 					end)
-					
 					local textBox = Instance.new("TextBox")
 					textBox.Size = UDim2.new(0,300,0,40)
 					textBox.Position = UDim2.new(0,25,0,10)
@@ -698,7 +652,6 @@ delay(5, function()
 					textBox.TextScaled = true
 					textBox.PlaceholderText = "enter new text"
 					textBox.Parent = panel
-					
 					local applyButton = Instance.new("TextButton")
 					applyButton.Size = UDim2.new(0,80,0,30)
 					applyButton.Position = UDim2.new(0,280,0,60)
@@ -708,7 +661,6 @@ delay(5, function()
 					applyButton.Font = Enum.Font.SourceSans
 					applyButton.TextScaled = true
 					applyButton.Parent = panel
-					
 					applyButton.MouseButton1Click:Connect(function()
 						local newText = textBox.Text
 						for _, obj in ipairs(objs) do
@@ -726,7 +678,6 @@ delay(5, function()
 			activeUI = sideUI
 			updateMainUIState()
 		end
-
 		local function openPlayerTeleportUI()
 			if activeUI then return end
 			local tpUI = Instance.new("Frame")
@@ -734,10 +685,8 @@ delay(5, function()
 			tpUI.Size = UDim2.new(0,400,0,400)
 			tpUI.Position = UDim2.new(1,10,0.5,-200)
 			tpUI.BackgroundColor3 = Color3.fromRGB(30,30,30)
-			-- Changed from screenGui to mainFrame
 			tpUI.Parent = mainFrame
 			makeDraggable(tpUI)
-			
 			local tpClose = Instance.new("TextButton")
 			tpClose.Size = UDim2.new(0,50,0,25)
 			tpClose.Position = UDim2.new(1,-55,0,5)
@@ -753,24 +702,20 @@ delay(5, function()
 					updateMainUIState()
 				end)
 			end)
-			
 			local scrollingFrame = Instance.new("ScrollingFrame")
 			scrollingFrame.Size = UDim2.new(1,0,1,-35)
 			scrollingFrame.Position = UDim2.new(0,0,0,35)
 			scrollingFrame.BackgroundTransparency = 1
 			scrollingFrame.Parent = tpUI
-			
 			local listLayout = Instance.new("UIListLayout")
 			listLayout.Parent = scrollingFrame
 			listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-			
 			for _, model in ipairs(Workspace:GetChildren()) do
 				if model:IsA("Model") and model:FindFirstChildOfClass("Humanoid") then
 					local entry = Instance.new("Frame")
 					entry.Size = UDim2.new(1,0,0,30)
 					entry.BackgroundTransparency = 1
 					entry.Parent = scrollingFrame
-					
 					local nameLabel = Instance.new("TextLabel")
 					nameLabel.Size = UDim2.new(0.7,0,1,0)
 					nameLabel.BackgroundTransparency = 1
@@ -779,7 +724,6 @@ delay(5, function()
 					nameLabel.Font = Enum.Font.SourceSans
 					nameLabel.TextScaled = true
 					nameLabel.Parent = entry
-					
 					local tpButton = Instance.new("TextButton")
 					tpButton.Size = UDim2.new(0.3,0,1,0)
 					tpButton.Position = UDim2.new(0.7,0,0,0)
@@ -789,7 +733,6 @@ delay(5, function()
 					tpButton.Font = Enum.Font.SourceSans
 					tpButton.TextScaled = true
 					tpButton.Parent = entry
-					
 					tpButton.MouseButton1Click:Connect(function()
 						local originalColor = nameLabel.TextColor3
 						nameLabel.TextColor3 = Color3.fromRGB(0,0,255)
@@ -810,15 +753,10 @@ delay(5, function()
 			activeUI = tpUI
 			updateMainUIState()
 		end
-
-		---------------------------
-		-- Connect Main Button Events
-		---------------------------
 		newToolButton.MouseButton1Click:Connect(function() openNewToolUI() end)
 		openTextButton.MouseButton1Click:Connect(function() openTextChangerUI() end)
 		hipheightButton.MouseButton1Click:Connect(function() openHipheightUI() end)
 		teleportButton.MouseButton1Click:Connect(function() openPlayerTeleportUI() end)
 	end)
 end)
-
 print("Toolchanger script loaded.")
