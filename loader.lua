@@ -281,44 +281,144 @@ local function runInvisScript()
 	Sound:Play()
 	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "loaded lmao", Text = "press e to invis!!!", Duration = 20, Button1 = "Okay."})
 end
+local function funny()
+	game:GetService("StarterGui"):SetCore("SendNotification", { 
+
+		Title = "skidded from toriko";
+
+		Text = "HELL YEAH";})
+
+	Duration = 90;
+
+	local lp = game:FindService("Players").LocalPlayer
+
+	local function gplr(String)
+	local Found = {}
+	local strl = String:lower()
+	if strl == "all" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			table.insert(Found,v)
+		end
+	elseif strl == "others" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name ~= lp.Name then
+				table.insert(Found,v)
+			end
+		end 
+	elseif strl == "me" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name == lp.Name then
+				table.insert(Found,v)
+			end
+		end 
+	else
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name:lower():sub(1, #String) == String:lower() then
+				table.insert(Found,v)
+			end
+		end 
+	end
+	return Found 
+end
+
+local function notif(str,dur)
+	game:FindService("StarterGui"):SetCore("SendNotification", {
+		Title = "skidded lmfao",
+		Text = str,
+		Icon = "rbxassetid://14774552763",
+		Duration = dur or 3
+	})
+end
+
+--// sds
+
+local h = Instance.new("ScreenGui")
+local Main = Instance.new("ImageLabel")
+local Top = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local TextBox = Instance.new("TextBox")
+local TextButton = Instance.new("TextButton")
+
+h.Name = "h"
+h.Parent = game:GetService("CoreGui")
+h.ResetOnSpawn = false
+
+Main.Name = "Main"
+Main.Parent = screenGui
+Main.Active = true
+Main.Draggable = true
+Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.174545452, 0, 0.459574461, 0)
+Main.Size = UDim2.new(0, 454, 0, 218)
+
+
+Top.Name = "Top"
+Top.Parent = Main
+Top.BackgroundColor3 = Color3.fromRGB(57, 57, 57)
+Top.BorderSizePixel = 0
+Top.Size = UDim2.new(0, 454, 0, 44)
+
+Title.Name = "Title"
+Title.Parent = Top
+Title.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+Title.BorderSizePixel = 0
+Title.Position = UDim2.new(0, 0, 0.295454562, 0)
+Title.Size = UDim2.new(0, 454, 0, 30)
+Title.Font = Enum.Font.SourceSans
+Title.Text = "skidded from torkio"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.TextSize = 14.000
+Title.TextWrapped = true
+
+TextBox.Parent = Main
+TextBox.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.0704845786, 0, 0.270642221, 0)
+TextBox.Size = UDim2.new(0, 388, 0, 62)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.PlaceholderText = "Who do i destroy(can be shortened)"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+TextBox.TextSize = 14.000
+TextBox.TextWrapped = true
+
+TextButton.Parent = Main
+TextButton.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.10352423, 0, 0.596330225, 0)
+TextButton.Size = UDim2.new(0, 359, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "DIE"
+TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+TextButton.MouseButton1Click:Connect(function()
+	local Target = gplr(TextBox.Text)
+	if Target[1] then
+		Target = Target[1]
+		
+		local Thrust = Instance.new('BodyThrust', lp.Character.HumanoidRootPart)
+		Thrust.Force = Vector3.new(9999,9999,9999)
+		Thrust.Name = "YeetForce"
+		repeat
+			lp.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+			Thrust.Location = Target.Character.HumanoidRootPart.Position
+			game:FindService("RunService").Heartbeat:wait()
+		until not Target.Character:FindFirstChild("Head")
+	else
+		notif("Invalid player")
+	end
+end)
+end
+
 
 local function runFlingScript()
-	local speaker = Players.LocalPlayer
-	local function getRoot(character)
-		return character and character:FindFirstChild("HumanoidRootPart")
-	end
-	local humanoid = speaker.Character and speaker.Character:FindFirstChildWhichIsA("Humanoid")
-	local isDead = false
-	if humanoid then
-		humanoid.Died:Connect(function()
-			isDead = true
-			execCmd("unwalkfling")
-		end)
-	end
-	execCmd("noclip nonotify")
-	walkflinging = true
-	repeat 
-		RunService.Heartbeat:Wait()
-		local character = speaker.Character
-		local root = getRoot(character)
-		local vel, movel = nil, 0.1
-		while not (character and character.Parent and root and root.Parent) do
-			RunService.Heartbeat:Wait()
-			character = speaker.Character
-			root = getRoot(character)
-		end
-		vel = root.Velocity
-		root.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
-		RunService.RenderStepped:Wait()
-		if character and character.Parent and root and root.Parent then
-			root.Velocity = vel
-		end
-		RunService.Stepped:Wait()
-		if character and character.Parent and root and root.Parent then
-			root.Velocity = vel + Vector3.new(0, movel, 0)
-			movel = movel * -1
-		end
-	until isDead
+	funny()
 end
 
 local function runPage2Script()
