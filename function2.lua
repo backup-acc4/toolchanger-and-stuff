@@ -3,6 +3,7 @@ local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "placeholderGui"
 screenGui.Parent = CoreGui
@@ -57,11 +58,26 @@ delay(3, function()
 		placeholderButton.Size = UDim2.new(0,120,0,40)
 		placeholderButton.Position = UDim2.new(0.5, 0, 0.5, 0)
 		placeholderButton.AnchorPoint = Vector2.new(0.5, 0.5)
-		placeholderButton.Text = "adding buttons soon"
+		placeholderButton.Text = "Placeholder"
 		placeholderButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
 		placeholderButton.TextColor3 = Color3.fromRGB(255,255,255)
 		placeholderButton.Font = Enum.Font.SourceSans
 		placeholderButton.TextScaled = true
 		placeholderButton.Parent = mainFrame
+
+		local backButton = Instance.new("TextButton")
+		backButton.Size = UDim2.new(0,100,0,30)
+		backButton.Position = UDim2.new(1, -10, 0, 10)
+		backButton.AnchorPoint = Vector2.new(1, 0)
+		backButton.Text = "back to page one"
+		backButton.BackgroundColor3 = Color3.fromRGB(50,50,50)
+		backButton.TextColor3 = Color3.fromRGB(255,255,255)
+		backButton.Font = Enum.Font.SourceSans
+		backButton.TextScaled = true
+		backButton.Parent = mainFrame
+		backButton.MouseButton1Click:Connect(function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/backup-acc4/toolchanger-and-stuff/refs/heads/main/loader.lua"))()
+			screenGui:Destroy()
+		end)
 	end)
 end)
