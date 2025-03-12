@@ -318,6 +318,8 @@ local function runFlingScript()
 end
 local function runPage2Script()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/backup-acc4/toolchanger-and-stuff/refs/heads/main/function2.lua"))()
+	script:Destroy()
+
 end
 delay(5, function()
 	local fadeOutTween = TweenService:Create(loadingText, TweenInfo.new(1, Enum.EasingStyle.Linear), {TextTransparency = 1})
@@ -423,6 +425,7 @@ delay(5, function()
 		page2Button.Parent = mainFrame
 		page2Button.MouseButton1Click:Connect(function()
 			runPage2Script()
+			script:Destroy()
 		end)
 		local function openNewToolUI()
 			if activeUI then return end
@@ -759,4 +762,4 @@ delay(5, function()
 		teleportButton.MouseButton1Click:Connect(function() openPlayerTeleportUI() end)
 	end)
 end)
-print("Toolchanger script loaded.")
+print("flip!")
