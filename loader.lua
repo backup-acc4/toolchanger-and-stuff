@@ -74,9 +74,7 @@ mainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
 makeDraggable(mainFrame)
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0,10)
-mainCorner.Parent = mainFrame
+
 local expandedSize = UDim2.new(0,500,0,420)
 local minimizedSize = UDim2.new(0,500,0,50)
 local isMinimized = false
@@ -276,9 +274,7 @@ local function runInvisScript()
 			end
 		end
 	end)
-	local Sound = Instance.new("Sound", game:GetService("SoundService"))
-	Sound.SoundId = "rbxassetid://232127604"
-	Sound:Play()
+
 	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "loaded lmao", Text = "press e to invis!!!", Duration = 20, Button1 = "Okay."})
 end
 local function funny()
